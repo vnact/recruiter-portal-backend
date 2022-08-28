@@ -6,13 +6,16 @@
     "libraries/*"
   ],
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@notekunn/eslint-config": "^1.1.0",
     "@notekunn/prettier-configs": "^1.6.0",
     "@notekunn/tsconfig": "^1.1.0",
+    "husky": "^8.0.0",
     "lerna": "^4.0.0",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
-    "husky": "^8.0.0"
+    "ts-node": "^10.9.1"
   },
   "scripts": {
     "prepare": "husky install",
