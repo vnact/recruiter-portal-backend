@@ -1,6 +1,15 @@
 {
-  "packages": [
-    "packages/*"
-  ],
-  "version": "0.0.0"
+  "version": "independent",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "packages": ["libraries/*", "apps/*"],
+  "command": {
+    "publish": {
+      "yes": true,
+      "createRelease": "github",
+      "conventionalCommits": true,
+      "message": "chore(release): [skip ci] publish",
+      "registry": "https://npm.pkg.github.com"
+    }
+  }
 }
