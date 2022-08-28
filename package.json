@@ -1,7 +1,34 @@
 {
   "name": "root",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "libraries/*"
+  ],
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@notekunn/eslint-config": "^1.1.0",
+    "@notekunn/prettier-configs": "^1.6.0",
+    "@notekunn/tsconfig": "^1.1.0",
+    "husky": "^8.0.0",
+    "lerna": "^4.0.0",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.9.1"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "lint-staged": "lint-staged --config lint-staged.js",
+    "format:check": "prettier --check \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",
+    "format:write": "prettier --write \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",
+    "lint": "eslint --ext .ts",
+    "lint:fix": "eslint --ext .ts --fix"
+  },
+  "prettier": "@notekunn/prettier-configs",
+  "eslintConfig": {
+    "extends": [
+      "@notekunn/eslint-config"
+    ]
   }
 }
