@@ -2,6 +2,15 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^4.0.0"
-  }
+    "@notekunn/eslint-config": "^1.1.0",
+    "@notekunn/prettier-configs": "^1.6.0",
+    "@notekunn/tsconfig": "^1.1.0",
+    "lerna": "^4.0.0",
+    "prettier": "^2.7.1"
+  },
+  "scripts": {
+    "format:check": "prettier --check \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",
+    "format:write": "prettier --write \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\""
+  },
+  "prettier": "@notekunn/prettier-configs"
 }
