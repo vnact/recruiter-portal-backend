@@ -4,6 +4,8 @@ WORKDIR /home/node/build
 
 ENV NODE_ENV=production
 
+COPY . .
+
 RUN --mount=type=secret,id=npmrc,target=/home/node/build/.npmrc \
     --mount=type=secret,id=token NODE_AUTH_TOKEN=$(cat /run/secrets/token) \
     yarn ci:install && yarn ci:build
