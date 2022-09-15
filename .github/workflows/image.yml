@@ -14,16 +14,16 @@ jobs:
   docker:
     name: Build image 💿
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' }} || \
-      ${{ github.event_name == 'release' && startsWith(github.ref, '222@vnact/recruiter-cms')}}
     steps:
       - uses: actions/checkout@v3
       - run: echo ${{github.ref}}
-      - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/@vnact/recruiter-cms@/*/}" >> $GITHUB_ENV
+      - uses: olegtarasov/get-tag@v2.1
+        id: tagName
         if: ${{ github.event_name == 'release' }}
+        with:
+          tagRegex: '@(?<package>.*)@(?<version>.*)'
       - name: Set env
-        run: echo "RELEASE_VERSION=${{inputs.version}}" >> $GITHUB_ENV
+        run: echo "GIT_TAG_NAME=${{inputs.version}}" >> $GITHUB_ENV
         if: ${{ github.event_name == 'workflow_dispatch'}}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: notekunn/recruiter:${{ env.RELEASE_VERSION }}
+          tags: notekunn/recruiter:${{ env.GIT_TAG_NAME }}
           secrets: |
             "token=${{ secrets.GITHUB_TOKEN  }}"
           secret-files: |
