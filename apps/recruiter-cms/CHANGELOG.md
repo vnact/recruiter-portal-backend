@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.1.2 (2022-09-15)
+
+### Bug Fixes
+
+- docker build ([44e6fc7](https://github.com/vnact/recruiter-portal-backend/commit/44e6fc7805c4fde6d7c476ccd03edf712d2760d0))
+
 ## 0.1.1 (2022-09-15)
 
 ### Bug Fixes
