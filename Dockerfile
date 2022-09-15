@@ -14,7 +14,7 @@ WORKDIR /home/node/app
 
 USER node
 
-COPY --from=build --chown=node:node ./apps/recruiter-cms/dist /home/node/app/
+COPY --from=build --chown=node:node /home/node/build/apps/recruiter-cms/dist /home/node/app/
 
 RUN --mount=type=secret,id=npmrc,target=/home/node/app/.npmrc \
     --mount=type=secret,id=token NODE_AUTH_TOKEN=$(cat /run/secrets/token) \
