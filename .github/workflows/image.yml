@@ -26,8 +26,11 @@ jobs:
         if: ${{ github.event_name == 'release' }}
         with:
           tagRegex: '@(?<package>.*)@(?<version>.*)'
+      - run: echo "RELEASE_VERSION=${{ steps.tagName.outputs.version }}" >> $GITHUB_ENV
+        if: ${{ github.event_name == 'release' }}
+        name: Set env
       - name: Set env
-        run: echo "GIT_TAG_NAME=${{inputs.version}}" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION=${{inputs.version}}" >> $GITHUB_ENV
         if: ${{ github.event_name == 'workflow_dispatch'}}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -42,7 +45,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: notekunn/recruiter:${{ env.GIT_TAG_NAME }}
+          tags: notekunn/recruiter:${{ env.RELEASE_VERSION }}
           secrets: |
             "token=${{ secrets.GITHUB_TOKEN  }}"
           secret-files: |
