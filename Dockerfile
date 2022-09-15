@@ -2,19 +2,17 @@ FROM node:16.17-alpine as build
 
 WORKDIR /usr/src/build
 
-ENV NODE_ENV=production
-
 COPY . .
 
 
 RUN --mount=type=secret,id=npmrc,target=/usr/src/build/.npmrc \
-    --mount=type=secret,id=token NODE_AUTH_TOKEN=$(cat /run/secrets/token) \
+    --mount=type=secret,id=token NODE_AUTH_TOKEN=$(cat /run/secrets/token) && \
     export NODE_AUTH_TOKEN && yarn ci:install
 
 RUN yarn ci:build
 
 RUN --mount=type=secret,id=npmrc,target=/usr/src/build/.npmrc \
-    --mount=type=secret,id=token NODE_AUTH_TOKEN=$(cat /run/secrets/token) \
+    --mount=type=secret,id=token NODE_AUTH_TOKEN=$(cat /run/secrets/token) && \
     export NODE_AUTH_TOKEN && yarn ci:install --production=true
 
 FROM node:16.17-alpine as prod
