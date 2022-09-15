@@ -1,7 +1,7 @@
 name: 💿
 
 on:
-  push:
+  release:
     tags:
       - '@vnact/recruiter-cms@*'
   workflow_dispatch:
@@ -12,12 +12,13 @@ on:
 
 jobs:
   docker:
+    name: Build image 💿
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set env
         run: |
-          if [[ ${{github.events.push != null }} ]]; then
+          if [[ ${{github.events.release != null }} ]]; then
             echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
           else
             echo "RELEASE_VERSION=${{inputs.version}}" >> $GITHUB_ENV
