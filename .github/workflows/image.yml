@@ -21,6 +21,8 @@ jobs:
           node-version: 16
           registry-url: 'https://npm.pkg.github.com'
           scope: '@notekunn'
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.PAT }}
       - uses: olegtarasov/get-tag@v2.1
         id: tagName
         if: ${{ github.event_name == 'release' }}
@@ -47,6 +49,6 @@ jobs:
           push: true
           tags: notekunn/recruiter:${{ env.RELEASE_VERSION }}
           secrets: |
-            "token=${{ secrets.GITHUB_TOKEN  }}"
+            "token=${{ secrets.PAT }}"
           secret-files: |
             "npmrc=${{ env.NPM_CONFIG_USERCONFIG }}"
