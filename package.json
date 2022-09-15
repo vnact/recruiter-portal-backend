@@ -23,7 +23,12 @@
     "format:check": "prettier --check \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",
     "format:write": "prettier --write \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",
     "lint": "eslint \"./@(apps|libraries)/**/*.ts\"",
-    "lint:fix": "eslint --fix \"./@(apps|libraries)/**/*.ts\""
+    "lint:fix": "eslint --fix \"./@(apps|libraries)/**/*.ts\"",
+    "test": "lerna run test --include-dependencies --stream",
+    "build": "lerna run build --include-dependencies --stream",
+    "ci:install": "yarn install --frozen-lockfile",
+    "ci:build": "lerna run build --include-dependencies",
+    "ci:release": "lerna publish"
   },
   "prettier": "@notekunn/prettier-configs",
   "eslintConfig": {
