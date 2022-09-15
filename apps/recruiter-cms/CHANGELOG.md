@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.9.1 (2022-09-15)
+
+### Bug Fixes
+
+- docker not found lerna ([4bcee3e](https://github.com/vnact/recruiter-portal-backend/commit/4bcee3e99bccf045a89c4528caf08790cf6f2aa0))
+
 # 0.9.0 (2022-09-15)
 
 ### Features
