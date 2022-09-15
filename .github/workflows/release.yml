@@ -22,7 +22,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@notekunn'
       - run: yarn ci:install && yarn ci:build
-        with:
+        env:
           NODE_AUTH_TOKEN: ${{ secrets.PAT }}
       - name: Release
         run: |

@@ -23,6 +23,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@notekunn'
       - run: yarn ci:install
-        with:
+        env:
           NODE_AUTH_TOKEN: ${{ secrets.PAT }}
       - run: yarn test
