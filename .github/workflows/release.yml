@@ -1,0 +1,34 @@
+name: 🚀
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Release 🚀
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        node: [16]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@notekunn'
+      - run: yarn ci:install && yarn ci:build
+        with:
+          NODE_AUTH_TOKEN: ${{ secrets.PAT }}
+      - name: Release
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          yarn ci:release
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
+          NODE_AUTH_TOKEN: ${{ secrets.PAT }}

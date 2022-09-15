@@ -1,0 +1,28 @@
+name: ✨
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!main'
+
+jobs:
+  test:
+    name: Unit test ✨
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        node: [16]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@notekunn'
+      - run: yarn ci:install
+        with:
+          NODE_AUTH_TOKEN: ${{ secrets.PAT }}
+      - run: yarn test
