@@ -15,9 +15,10 @@ jobs:
     name: Build image 💿
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' }} || \
-      ${{ github.event_name == 'release' && startsWith(github.ref, '@vnact/recruiter-cms')}}
+      ${{ github.event_name == 'release' && startsWith(github.ref, '222@vnact/recruiter-cms')}}
     steps:
       - uses: actions/checkout@v3
+      - run: echo ${{github.ref}}
       - name: Set env
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/@vnact/recruiter-cms@/*/}" >> $GITHUB_ENV
         if: ${{ github.event_name == 'release' }}
