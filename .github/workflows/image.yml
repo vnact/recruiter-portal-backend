@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: notekunn/recruiter:${{ env.RELEASE_VERSION }}
+          tags: notekunn/recruiter-cms:${{ env.RELEASE_VERSION }}
           secrets: |
             "token=${{ secrets.PAT }}"
           secret-files: |
