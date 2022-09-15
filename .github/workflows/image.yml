@@ -14,12 +14,13 @@ jobs:
   docker:
     name: Build image 💿
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' }} || ${{ github.event_name == ''}}
+    if: ${{ github.event_name == 'workflow_dispatch' }} || \
+      ${{ github.event_name == 'release' && startWidth(github.ref, '@vnact/recruiter-cms')}}
     steps:
       - uses: actions/checkout@v3
       - name: Set env
         run: |
-          if [[ ${{ github.events.release != null }} ]]; then
+          if [[ ${{ github.event_name == 'release' }} ]]; then
             echo "RELEASE_VERSION=${GITHUB_REF#refs/@vnact/recruiter-cms@/*/}" >> $GITHUB_ENV
           else
             echo "RELEASE_VERSION=${{inputs.version}}" >> $GITHUB_ENV
