@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.1.0 (2022-09-15)
+
+### Features
+
+- update version cms ([bfe5a3a](https://github.com/vnact/recruiter-portal-backend/commit/bfe5a3a2ae979e8582973bfb8197c6e7d7389cfc))
+
 ## 0.9.2 (2022-09-15)
 
 ### Bug Fixes
