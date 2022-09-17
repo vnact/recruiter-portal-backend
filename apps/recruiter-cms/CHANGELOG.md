@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.2.0 (2022-09-17)
+
+### Features
+
+- add map search ([#4](https://github.com/vnact/recruiter-portal-backend/issues/4)) ([0e21db1](https://github.com/vnact/recruiter-portal-backend/commit/0e21db1469c47bc535edbc1bb7282c7e5f95540a))
+
 # 1.1.0 (2022-09-15)
 
 ### Features
