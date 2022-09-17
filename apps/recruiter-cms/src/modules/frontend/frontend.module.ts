@@ -16,6 +16,7 @@ import { frontendQueryHandlers } from './queries';
           baseURL: 'https://maps.googleapis.com/maps/api/',
           params: {
             key: configService.get('GOOGLEMAP_API_KEY'),
+            language: 'vi',
           },
         };
       },

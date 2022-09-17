@@ -3,8 +3,11 @@ import { HttpService } from '@nestjs/axios';
 import { BadRequestException } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { firstValueFrom } from 'rxjs';
+import { PlaceSuggestionResponseDto } from '../dto/place-suggestion-response.dto';
 
-export class GetPlaceSuggestionQuery extends Query<string> {
+export class GetPlaceSuggestionQuery extends Query<
+  PlaceSuggestionResponseDto[]
+> {
   constructor(public readonly place: string) {
     super();
   }
@@ -16,7 +19,9 @@ export class GetPlaceSuggestionQueryHandler
 {
   constructor(private readonly httpService: HttpService) {}
 
-  async execute(query: GetPlaceSuggestionQuery): Promise<any> {
+  async execute(
+    query: GetPlaceSuggestionQuery,
+  ): Promise<PlaceSuggestionResponseDto[]> {
     const { data } = await firstValueFrom(
       this.httpService.get('/place/autocomplete/json', {
         params: {
@@ -27,6 +32,9 @@ export class GetPlaceSuggestionQueryHandler
 
     if (data.status !== 'OK') throw new BadRequestException(data.error_message);
 
-    return data.predictions;
+    return data.predictions.map((place) => ({
+      id: place.place_id,
+      name: place.description,
+    }));
   }
 }
