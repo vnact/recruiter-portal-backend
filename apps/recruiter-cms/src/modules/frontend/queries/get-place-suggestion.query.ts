@@ -1,6 +1,6 @@
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
+import { BadRequestException } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { firstValueFrom } from 'rxjs';
 
@@ -14,21 +14,18 @@ export class GetPlaceSuggestionQuery extends Query<string> {
 export class GetPlaceSuggestionQueryHandler
   implements IQueryHandler<GetPlaceSuggestionQuery>
 {
-  constructor(
-    private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly httpService: HttpService) {}
 
   async execute(query: GetPlaceSuggestionQuery): Promise<any> {
     const { data } = await firstValueFrom(
       this.httpService.get('/place/autocomplete/json', {
         params: {
           input: query.place,
-          key: this.configService.get('GOOGLEMAP_API_KEY'),
         },
       }),
     );
-    if (data.status !== 'OK') throw new Error('Error happend');
+
+    if (data.status !== 'OK') throw new BadRequestException(data.error_message);
 
     return data.predictions;
   }

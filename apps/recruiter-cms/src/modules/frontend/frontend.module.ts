@@ -2,17 +2,25 @@ import { Module } from '@nestjs/common';
 import { FrontendController } from './frontend.controller';
 import { CqrsModule } from '@nestjs/cqrs';
 import { HttpModule } from '@nestjs/axios';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { frontendQueryHandlers } from './queries';
 
 @Module({
   controllers: [FrontendController],
   imports: [
     CqrsModule,
-    HttpModule.register({
-      baseURL: 'https://maps.googleapis.com/maps/api/',
+    HttpModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (configService) => {
+        return {
+          baseURL: 'https://maps.googleapis.com/maps/api/',
+          params: {
+            key: configService.get('GOOGLEMAP_API_KEY'),
+          },
+        };
+      },
+      imports: [ConfigModule],
     }),
-    ConfigModule,
   ],
   providers: [...frontendQueryHandlers],
 })
