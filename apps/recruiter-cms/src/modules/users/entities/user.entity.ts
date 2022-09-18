@@ -1,6 +1,16 @@
-import { AbstractEntity } from '@common/abstract.entity';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+} from 'typeorm';
 import { Gender, ExpLevel } from '@vnact/recruiter-shared-enum';
-import { Column, Entity, Index } from 'typeorm';
+import { AbstractEntity } from '@common/abstract.entity';
+import { EducationEntity } from '@modules/education/entities/education.entity';
+import { ExperienceEntity } from '@modules/experience/entities/experience.entity';
+import { SkillEntity } from '@modules/skills/entities/skill.entity';
 
 @Entity('users')
 export class UserEntity extends AbstractEntity {
@@ -82,4 +92,16 @@ export class UserEntity extends AbstractEntity {
     type: 'text',
   })
   description?: string;
+
+  @OneToMany(() => EducationEntity, (education) => education.id)
+  educations: EducationEntity[];
+
+  @OneToMany(() => ExperienceEntity, (experience) => experience.id)
+  experiences: ExperienceEntity[];
+
+  @ManyToMany(() => SkillEntity)
+  @JoinTable({
+    name: 'user_skill',
+  })
+  skills: SkillEntity[];
 }
