@@ -1,0 +1,21 @@
+{
+  "name": "@vnact/recruiter-shared-enum",
+  "version": "1.0.0",
+  "description": "Shared enum",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "private": true,
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "@notekunn/tsconfig": "^1.1.0"
+  }
+}
