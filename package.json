@@ -1,7 +1,13 @@
 {
   "name": "@vnact/recruiter-portal-backend",
+  "license": "UNLICENSED",
   "private": true,
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vnact/recruiter-portal-backend.git"
+  },
+  "author": "DC <cuong.nl5.kma@gmail.com>",
   "workspaces": [
     "apps/*",
     "libraries/*"
@@ -39,7 +45,5 @@
     "ignorePatterns": [
       "**/*.d.ts"
     ]
-  },
-  "repository": "git@github.com:vnact/recruiter-portal-backend.git",
-  "author": "DC <cuong.nl5.kma@gmail.com>"
+  }
 }
