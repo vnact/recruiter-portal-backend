@@ -21,6 +21,7 @@ jobs:
           node-version: ${{ matrix.node }}
           registry-url: 'https://npm.pkg.github.com'
           scope: '@notekunn'
+          NODE_AUTH_TOKEN: ${{ secrets.PAT }}
       - run: yarn ci:install && yarn ci:build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PAT }}
