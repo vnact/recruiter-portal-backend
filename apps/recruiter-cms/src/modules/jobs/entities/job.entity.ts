@@ -29,8 +29,8 @@ export class JobEntity extends AbstractEntity {
 
   @Column({
     enum: Gender,
-    enumName: 'gender',
     array: true,
+    type: 'varchar',
   })
   gender: Gender[];
 
@@ -59,16 +59,16 @@ export class JobEntity extends AbstractEntity {
   recruiter: UserEntity;
 
   @Column({
-    type: 'enum',
     enum: EmploymentType,
     array: true,
+    type: 'varchar',
   })
   employmentType: EmploymentType[];
 
   @Column({
-    type: 'enum',
     enum: Workplace,
     array: true,
+    type: 'varchar',
   })
   workplaces: Workplace[];
 
