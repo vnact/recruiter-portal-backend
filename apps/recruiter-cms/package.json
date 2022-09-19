@@ -2,9 +2,13 @@
   "name": "@vnact/recruiter-cms",
   "version": "1.4.0",
   "description": "",
-  "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "repository": "git@github.com:vnact/recruiter-portal-backend.git",
+  "author": "DC <cuong.nl5.kma@gmail.com>",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",

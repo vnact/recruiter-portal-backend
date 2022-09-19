@@ -9,6 +9,8 @@
   "publishConfig": {
     "access": "restricted"
   },
+  "repository": "git@github.com:vnact/recruiter-portal-backend.git",
+  "author": "DC <cuong.nl5.kma@gmail.com>",
   "scripts": {
     "build": "tsc"
   },
