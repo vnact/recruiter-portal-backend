@@ -9,7 +9,6 @@ jobs:
     name: Check valid release
     runs-on: ubuntu-latest
     outputs:
-      status: ${{ steps.tagName.outputs.package == 'recruiter-cms' }}
       org: ${{ steps.tagName.outputs.org }}
       package: ${{ steps.tagName.outputs.package }}
       version: ${{ steps.tagName.outputs.version }}
@@ -22,7 +21,7 @@ jobs:
           tagRegex: '@(?<org>.*)/(?<package>.*)@(?<version>.*)'
   docker:
     needs: check
-    if: ${{ needs.check.outputs.status }}
+    if: ${{ needs.check.outputs.package == 'recruiter-cms' }}
     name: Build image 💿
     runs-on: ubuntu-latest
     steps:
