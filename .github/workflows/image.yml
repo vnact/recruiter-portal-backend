@@ -4,14 +4,25 @@ on:
   release:
     types:
       - published
-  workflow_dispatch:
-    inputs:
-      version:
-        required: true
-        description: Version of service
-
 jobs:
+  check:
+    name: Check valid release
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.tagName.outputs.package == 'recruiter-cms' }}
+      org: ${{ steps.tagName.outputs.org }}
+      package: ${{ steps.tagName.outputs.package }}
+      version: ${{ steps.tagName.outputs.version }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: olegtarasov/get-tag@v2.1
+        id: tagName
+        if: ${{ github.event_name == 'release' }}
+        with:
+          tagRegex: '@(?<org>.*)/(?<package>.*)@(?<version>.*)'
   docker:
+    needs: check
+    if: ${{ needs.check.outputs.status }}
     name: Build image 💿
     runs-on: ubuntu-latest
     steps:
@@ -23,17 +34,6 @@ jobs:
           scope: '@notekunn'
         env:
           NPM_AUTH_TOKEN: ${{ secrets.PAT }}
-      - uses: olegtarasov/get-tag@v2.1
-        id: tagName
-        if: ${{ github.event_name == 'release' }}
-        with:
-          tagRegex: '@(?<package>.*)@(?<version>.*)'
-      - run: echo "RELEASE_VERSION=${{ steps.tagName.outputs.version }}" >> $GITHUB_ENV
-        if: ${{ github.event_name == 'release' }}
-        name: Set env
-      - name: Set env
-        run: echo "RELEASE_VERSION=${{inputs.version}}" >> $GITHUB_ENV
-        if: ${{ github.event_name == 'workflow_dispatch'}}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: notekunn/recruiter-cms:${{ env.RELEASE_VERSION }}
+          tags: notekunn/${{ needs.check.outputs.package }}:${{ needs.check.outputs.version }}
           secrets: |
             "token=${{ secrets.PAT }}"
           secret-files: |
