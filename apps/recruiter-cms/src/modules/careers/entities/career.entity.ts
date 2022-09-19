@@ -1,4 +1,4 @@
-import { IndustryEntity } from '@/modules/companies/entities/industry.entity';
+import { IndustryEntity } from '@modules/companies/entities/industry.entity';
 import { AbstractEntity } from '@common/abstract.entity';
 import { Column, Entity, ManyToOne } from 'typeorm';
 

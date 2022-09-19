@@ -11,6 +11,7 @@ import { AbstractEntity } from '@common/abstract.entity';
 import { EducationEntity } from '@modules/education/entities/education.entity';
 import { ExperienceEntity } from '@modules/experience/entities/experience.entity';
 import { SkillEntity } from '@modules/skills/entities/skill.entity';
+import { JobEntity } from '@modules/jobs/entities/job.entity';
 
 @Entity('users')
 export class UserEntity extends AbstractEntity {
@@ -93,10 +94,10 @@ export class UserEntity extends AbstractEntity {
   })
   description?: string;
 
-  @OneToMany(() => EducationEntity, (education) => education.id)
+  @OneToMany(() => EducationEntity, (education) => education.user)
   educations: EducationEntity[];
 
-  @OneToMany(() => ExperienceEntity, (experience) => experience.id)
+  @OneToMany(() => ExperienceEntity, (experience) => experience.user)
   experiences: ExperienceEntity[];
 
   @ManyToMany(() => SkillEntity)
@@ -104,4 +105,7 @@ export class UserEntity extends AbstractEntity {
     name: 'user_skill',
   })
   skills: SkillEntity[];
+
+  @OneToMany(() => JobEntity, (job) => job.recruiter)
+  postedJobs: JobEntity[];
 }

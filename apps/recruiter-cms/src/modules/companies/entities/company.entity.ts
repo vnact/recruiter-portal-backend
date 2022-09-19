@@ -1,7 +1,8 @@
 import { AbstractEntity } from '@common/abstract.entity';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { CompanySize } from '@vnact/recruiter-shared-enum';
 import { IndustryEntity } from './industry.entity';
+import { JobEntity } from '@modules/jobs/entities/job.entity';
 
 @Entity('companies')
 export class CompanyEntity extends AbstractEntity {
@@ -54,4 +55,7 @@ export class CompanyEntity extends AbstractEntity {
     nullable: true,
   })
   industry?: IndustryEntity;
+
+  @OneToMany(() => JobEntity, (job) => job.company)
+  jobs: JobEntity[];
 }
