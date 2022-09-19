@@ -14,7 +14,7 @@ export const ormConfig = registerAs('database', () => {
     migrationsTableName: '__migrations',
     entities: ['dist/**/*.entity.js'],
     subscribers: ['dist/**/*.subscriber.js'],
-    migrations: ['dist/**/migrations/*.js'],
+    migrations: ['dist/**/{migrations,seeds}/*.js'],
     migrationsRun: true,
   } as TypeOrmModuleOptions;
 });

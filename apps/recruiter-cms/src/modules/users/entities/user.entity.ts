@@ -20,6 +20,9 @@ export class UserEntity extends AbstractEntity {
   })
   uid: string;
 
+  @Column('varchar')
+  name: string;
+
   @Column({
     enum: Gender,
     enumName: 'gender',

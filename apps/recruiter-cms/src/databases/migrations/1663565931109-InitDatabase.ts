@@ -95,6 +95,7 @@ export class InitDatabase1663565931109 implements MigrationInterface {
                 "id" SERIAL NOT NULL,
                 "email" character varying NOT NULL,
                 "uid" character varying NOT NULL,
+                "name" character varying NOT NULL,
                 "gender" character varying NOT NULL DEFAULT 'other',
                 "birth_day" date NOT NULL,
                 "height" double precision,
