@@ -15,6 +15,9 @@ export class UserEntity extends AbstractEntity {
   email: string;
 
   @Column('varchar')
+  password: string;
+
+  @Column('varchar')
   @Index({
     unique: true,
   })

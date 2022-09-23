@@ -12,18 +12,18 @@ export class SeedUser1663601587882 implements MigrationInterface {
       gender: Gender.Male,
       highSchool: 'Trung học phổ thông Nghi Lộc 5',
       identityCardNumber: '123456789',
-      uid: '123213213233',
+      uid: '632af61b0ebf8138eff3e19d',
       level: ExpLevel.OnePlus,
     });
 
     await queryRunner.manager.insert(UserEntity, {
-      email: 'lamsonkma@gmail.com',
+      email: '632af65e0ebf8138eff3e1a3',
       name: 'Nguyễn Lam Sơn',
       birthDay: moment('01/01/2000', 'DD/MM/YYYY').toDate(),
       gender: Gender.Male,
       highSchool: 'Trường THPT chuyên Hà Nội - Amsterdam',
       identityCardNumber: '123456789',
-      uid: '12323923232',
+      uid: '632af65e0ebf8138eff3e1a1',
       level: ExpLevel.LessThanOne,
     });
 
@@ -34,7 +34,7 @@ export class SeedUser1663601587882 implements MigrationInterface {
       gender: Gender.Male,
       highSchool: 'Trường Trung học phổ thông chuyên Phan Bội Châu, Nghệ An',
       identityCardNumber: '123456789',
-      uid: '232132132323',
+      uid: '632af6d40ebf8138eff3e1b1',
       level: ExpLevel.NoExp,
     });
   }
