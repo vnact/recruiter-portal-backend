@@ -1,6 +1,7 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { CheckUUIDHashCommandHandler } from './commands/check-uuid-hash.command';
 import { CreateUUIDCommandHandler } from './commands/create-uuid.command';
 
 @Module({
@@ -14,6 +15,6 @@ import { CreateUUIDCommandHandler } from './commands/create-uuid.command';
       },
     }),
   ],
-  providers: [CreateUUIDCommandHandler],
+  providers: [CreateUUIDCommandHandler, CheckUUIDHashCommandHandler],
 })
 export class UUIDModule {}

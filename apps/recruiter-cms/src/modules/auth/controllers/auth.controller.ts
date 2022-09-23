@@ -1,4 +1,5 @@
-import { Controller, Post } from '@nestjs/common';
+import { LocalAuthGuard } from '@guards/local-auth.guard';
+import { Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { UserLoginDto } from '../dto/user-login-request.dto';
 
@@ -9,7 +10,10 @@ export class AuthController {
   @ApiBody({
     type: UserLoginDto,
   })
-  login() {
+  @UseGuards(LocalAuthGuard)
+  login(@Request() req) {
+    console.log('User', req.user);
+
     return {
       message: 'success',
     };
