@@ -16,5 +16,6 @@ export const ormConfig = registerAs('database', () => {
     subscribers: ['dist/**/*.subscriber.js'],
     migrations: ['dist/**/{migrations,seeds}/*.js'],
     migrationsRun: true,
+    logging: process.env.DB_LOGGING == 'true',
   } as TypeOrmModuleOptions;
 });

@@ -3,10 +3,25 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { AuthCommandHandlers } from './commands';
 import { AuthController } from './controllers/auth.controller';
 import { LocalStrategy } from './local.strategy';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   controllers: [AuthController],
-  imports: [CqrsModule],
+  imports: [
+    CqrsModule,
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return {
+          secret: configService.get('JWT_SECRET_KEY'),
+          signOptions: {
+            expiresIn: configService.get('JWT_EXPIRATION_TIME'),
+          },
+        };
+      },
+    }),
+  ],
   providers: [LocalStrategy, ...AuthCommandHandlers],
 })
 export class AuthModule {}

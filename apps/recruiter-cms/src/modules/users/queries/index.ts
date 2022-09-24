@@ -1,3 +1,3 @@
-import { GetOneUserQueryHandler } from './get-one-user-by-email.query';
+import { GetOneUserByEmailQueryHandler } from './get-one-user-by-email.query';
 
-export const UserQueryHandlers = [GetOneUserQueryHandler];
+export const UserQueryHandlers = [GetOneUserByEmailQueryHandler];

@@ -1,13 +1,14 @@
-import { GetOneUserQuery } from '@modules/users/queries/get-one-user-by-email.query';
+import { UserEntity } from '@modules/users/entities/user.entity';
+import { GetOneUserByEmailQuery } from '@modules/users/queries/get-one-user-by-email.query';
 import { CheckUUIDHashCommand } from '@modules/uuid/commands/check-uuid-hash.command';
 import { Command } from '@nestjs-architects/typed-cqrs';
+import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 import {
   ICommandHandler,
   CommandHandler,
   CommandBus,
   QueryBus,
 } from '@nestjs/cqrs';
-import { UtilService } from '@providers/utils.service';
 import { UserLoginDto } from '../dto/user-login-request.dto';
 
 export class ValidateUserCommand extends Command<boolean> {
@@ -24,21 +25,30 @@ export class ValidateUserCommandHandler
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
-  async execute(command: ValidateUserCommand): Promise<boolean> {
+  async execute(
+    command: ValidateUserCommand,
+  ): Promise<Pick<UserEntity, 'id' | 'email'>> {
     const {
       dto: { email, password },
     } = command;
 
-    const user = await this.queryBus.execute(new GetOneUserQuery(email));
-    console.log(user);
+    const user = await this.queryBus.execute(new GetOneUserByEmailQuery(email));
 
-    const hash = UtilService.generateHash(password);
+    if (!user) {
+      throw new NotFoundException('Cannot found user');
+    }
 
-    const data = await this.commandBus.execute(
-      new CheckUUIDHashCommand({ account: email, hash }),
+    const isCorrectPassword = await this.commandBus.execute(
+      new CheckUUIDHashCommand({ account: email, hash: password }),
     );
 
-    console.log(data);
-    return true;
+    if (!isCorrectPassword) {
+      throw new UnauthorizedException('Email or password is not correct');
+    }
+
+    return {
+      id: user.id,
+      email: user.email,
+    };
   }
 }
