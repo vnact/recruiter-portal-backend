@@ -1,14 +1,13 @@
 import { QueryBus } from '@nestjs/cqrs';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtClaimsDto } from './dto/jwt-claims.dto';
 import { ConfigService } from '@nestjs/config';
+import { GetRoleRecordQuery } from '@modules/users/queries/get-role-record.query';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  private readonly logger = new Logger(PassportStrategy.name);
-
   constructor(
     public readonly configService: ConfigService,
     private readonly queryBus: QueryBus,
@@ -20,11 +19,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate({ id: userId }): Promise<JwtClaimsDto> {
-    // const role = await this.queryBus.execute(new GetRoleRecordQuery(userId));
+    const role = await this.queryBus.execute(new GetRoleRecordQuery(userId));
 
     return {
       id: userId,
-      //   role: role,
+      role: role,
     };
   }
 }

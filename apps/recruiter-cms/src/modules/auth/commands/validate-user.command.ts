@@ -27,7 +27,7 @@ export class ValidateUserCommandHandler
   ) {}
   async execute(
     command: ValidateUserCommand,
-  ): Promise<Pick<UserEntity, 'id' | 'email'>> {
+  ): Promise<Pick<UserEntity, 'id' | 'email' | 'role'>> {
     const {
       dto: { email, password },
     } = command;
@@ -49,6 +49,7 @@ export class ValidateUserCommandHandler
     return {
       id: user.id,
       email: user.email,
+      role: user.role,
     };
   }
 }
