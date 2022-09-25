@@ -34,7 +34,7 @@
     "test": "lerna run test --include-dependencies --stream",
     "build": "lerna run build --include-dependencies --stream",
     "ci:install": "yarn install --frozen-lockfile",
-    "ci:build": "lerna run build --include-dependencies",
+    "ci:build": "lerna run build --include-dependencies --parallel --stream",
     "ci:release": "lerna publish"
   },
   "prettier": "@notekunn/prettier-configs",
