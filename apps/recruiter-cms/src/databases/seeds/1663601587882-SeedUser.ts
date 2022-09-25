@@ -1,5 +1,5 @@
 import { UserEntity } from '@modules/users/entities/user.entity';
-import { ExpLevel, Gender } from '@vnact/recruiter-shared-enum';
+import { ExpLevel, Gender, UserRole } from '@vnact/recruiter-shared-enum';
 import * as moment from 'moment';
 import { In, MigrationInterface, QueryRunner } from 'typeorm';
 
@@ -13,7 +13,7 @@ export class SeedUser1663601587882 implements MigrationInterface {
       highSchool: 'Trung học phổ thông Nghi Lộc 5',
       identityCardNumber: '123456789',
       uid: '632af61b0ebf8138eff3e19d',
-      password: '$2b$10$Aa9KKFwB.hL49J0iOsa6.e3JX8PvmITT51mlCZYtbbBbAFBja3K4C',
+      role: UserRole.Member,
       level: ExpLevel.OnePlus,
     });
 
@@ -25,7 +25,7 @@ export class SeedUser1663601587882 implements MigrationInterface {
       highSchool: 'Trường THPT chuyên Hà Nội - Amsterdam',
       identityCardNumber: '123456789',
       uid: '632af65e0ebf8138eff3e1a1',
-      password: '$2b$10$Aa9KKFwB.hL49J0iOsa6.e3JX8PvmITT51mlCZYtbbBbAFBja3K4C',
+      role: UserRole.Recruiter,
       level: ExpLevel.LessThanOne,
     });
 
@@ -37,7 +37,7 @@ export class SeedUser1663601587882 implements MigrationInterface {
       highSchool: 'Trường Trung học phổ thông chuyên Phan Bội Châu, Nghệ An',
       identityCardNumber: '123456789',
       uid: '632af6d40ebf8138eff3e1b1',
-      password: '$2b$10$Aa9KKFwB.hL49J0iOsa6.e3JX8PvmITT51mlCZYtbbBbAFBja3K4C',
+      role: UserRole.Member,
       level: ExpLevel.NoExp,
     });
   }

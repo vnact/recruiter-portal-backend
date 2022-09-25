@@ -1,5 +1,5 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { Gender, ExpLevel } from '@vnact/recruiter-shared-enum';
+import { Gender, ExpLevel, UserRole } from '@vnact/recruiter-shared-enum';
 import { AbstractEntity } from '@common/abstract.entity';
 import { EducationEntity } from '@modules/education/entities/education.entity';
 import { ExperienceEntity } from '@modules/experience/entities/experience.entity';
@@ -15,9 +15,6 @@ export class UserEntity extends AbstractEntity {
   email: string;
 
   @Column('varchar')
-  password: string;
-
-  @Column('varchar')
   @Index({
     unique: true,
   })
@@ -25,6 +22,13 @@ export class UserEntity extends AbstractEntity {
 
   @Column('varchar')
   name: string;
+
+  @Column({
+    enum: UserRole,
+    enumName: 'role',
+    default: UserRole.Member,
+  })
+  role: UserRole;
 
   @Column({
     enum: Gender,
