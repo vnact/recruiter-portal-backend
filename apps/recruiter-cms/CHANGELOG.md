@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.8.0 (2022-09-25)
+
+### Features
+
+- update ci:build command ([1abe3a4](https://github.com/vnact/recruiter-portal-backend/commit/1abe3a4f91ada080bfd4f0f000f6cd84e4f84ac9))
+
 # 1.7.0 (2022-09-19)
 
 ### Features
