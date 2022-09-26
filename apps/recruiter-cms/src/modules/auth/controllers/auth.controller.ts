@@ -4,13 +4,22 @@ import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { LocalAuthGuard } from '@guards/local-auth.guard';
 import { RolesGuard } from '@guards/roles.guard';
 import { GetOneUserQuery } from '@modules/users/queries/get-one-user.query';
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { UserRole } from '@vnact/recruiter-shared-enum';
 import { CreateTokenCommand } from '../commands/create-token.command';
+import { UserRegisterCommand } from '../commands/user-register.command';
 import { JwtClaimsDto } from '../dto/jwt-claims.dto';
 import { UserLoginDto } from '../dto/user-login-request.dto';
+import { UserRegisterDto } from '../dto/user-register.dto';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -41,13 +50,14 @@ export class AuthController {
     return this.queryBus.execute(new GetOneUserQuery(user.id));
   }
 
-  @Get('authorize')
-  @ApiBearerAuth()
-  @Roles(UserRole.Admin)
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  testAuthorize(@AuthUser() user: JwtClaimsDto) {
+  @Post('register')
+  async register(@Body() dto: UserRegisterDto) {
+    const user = await this.commandBus.execute(new UserRegisterCommand(dto));
+    const token = await this.commandBus.execute(new CreateTokenCommand(user));
+
     return {
-      message: `Hello user (${user.role})`,
+      user,
+      token,
     };
   }
 }
