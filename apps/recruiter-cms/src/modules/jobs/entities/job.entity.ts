@@ -1,8 +1,10 @@
 import { AbstractEntity } from '@common/abstract.entity';
+import { CareerEntity } from '@modules/careers/entities/career.entity';
 import { CompanyEntity } from '@modules/companies/entities/company.entity';
 import { UserEntity } from '@modules/users/entities/user.entity';
 import {
   EmploymentType,
+  ExpLevel,
   Gender,
   Workplace,
 } from '@vnact/recruiter-shared-enum';
@@ -58,12 +60,21 @@ export class JobEntity extends AbstractEntity {
   @ManyToOne(() => UserEntity, (user) => user.postedJobs)
   recruiter: UserEntity;
 
+  @ManyToOne(() => CareerEntity)
+  career: CareerEntity;
+
   @Column({
     enum: EmploymentType,
     array: true,
     type: 'varchar',
   })
   employmentType: EmploymentType[];
+
+  @Column({
+    enum: ExpLevel,
+    default: ExpLevel.NoExp,
+  })
+  level: ExpLevel;
 
   @Column({
     enum: Workplace,
