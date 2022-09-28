@@ -78,6 +78,27 @@ const industries: IndustryList[] = [
       { name: 'Chief Executive Officer', subItems: [] },
     ],
   },
+  {
+    name: 'E-commerce',
+    careers: [
+      {
+        name: 'Handing Out Flyers',
+        subItems: [],
+      },
+      {
+        name: 'Online Sales Manager',
+        subItems: [],
+      },
+      {
+        name: 'E-commerce Executive',
+        subItems: [],
+      },
+      {
+        name: 'Project Manager (E-commerce)',
+        subItems: [],
+      },
+    ],
+  },
 ];
 
 export class SeedIndustryAndCareer1664206334343 implements MigrationInterface {

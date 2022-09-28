@@ -16,7 +16,7 @@ export class CompanyEntity extends AbstractEntity {
   email: string;
 
   @Column('varchar')
-  tax_number: string;
+  taxNumber: string;
 
   @Column({
     type: 'varchar',
@@ -43,10 +43,10 @@ export class CompanyEntity extends AbstractEntity {
   address?: string;
 
   @Column('double precision')
-  gps_lat: number;
+  gpsLat: number;
 
   @Column('double precision')
-  gps_lng: number;
+  gpsLng: number;
 
   @Column('int')
   provinceId: number;
