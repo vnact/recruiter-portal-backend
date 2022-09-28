@@ -13,7 +13,7 @@ export const ormConfig = registerAs('database', () => {
     namingStrategy: new SnakeNamingStrategy(),
     migrationsTableName: '__migrations',
     entities: ['dist/**/*.entity.js'],
-    subscribers: ['dist/**/*.subscriber.js'],
+    subscribers: [''],
     migrations: ['dist/**/{migrations,seeds}/*.js'],
     migrationsRun: true,
     logging: process.env.DB_LOGGING == 'true',
