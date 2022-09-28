@@ -18,7 +18,7 @@ export class SeedUser1663601587882 implements MigrationInterface {
     });
 
     await queryRunner.manager.insert(UserEntity, {
-      email: '632af65e0ebf8138eff3e1a3',
+      email: 'lamsonkma@gmail.com',
       name: 'Nguyễn Lam Sơn',
       birthDay: moment('01/01/2000', 'DD/MM/YYYY').toDate(),
       gender: Gender.Male,
