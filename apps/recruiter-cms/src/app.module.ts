@@ -1,4 +1,5 @@
 import { AuthModule } from '@modules/auth/auth.module';
+import { JobModule } from '@modules/jobs/job.module';
 import { UserModule } from '@modules/users/user.module';
 import { UUIDModule } from '@modules/uuid/uuid.module';
 import { Module } from '@nestjs/common';
@@ -22,6 +23,7 @@ import { FrontendModule } from './modules/frontend/frontend.module';
     FrontendModule,
     AuthModule,
     UserModule,
+    JobModule,
   ],
 })
 export class AppModule {}

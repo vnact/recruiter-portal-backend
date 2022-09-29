@@ -189,6 +189,6 @@ export class SeedJob1664376834954 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.clearTable('job_skill');
-    await queryRunner.clearTable('jobs');
+    await queryRunner.manager.delete(JobEntity, {});
   }
 }
