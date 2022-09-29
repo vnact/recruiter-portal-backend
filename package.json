@@ -26,6 +26,7 @@
   },
   "scripts": {
     "prepare": "husky install",
+    "postinstall": "lerna bootstrap",
     "lint-staged": "lint-staged --config lint-staged.js",
     "format:check": "prettier --check \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",
     "format:write": "prettier --write \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",
@@ -34,7 +35,7 @@
     "test": "lerna run test --include-dependencies --stream",
     "build": "lerna run build --include-dependencies --stream",
     "ci:install": "yarn install --frozen-lockfile",
-    "ci:build": "lerna run build --include-dependencies --parallel --stream",
+    "ci:build": "yarn build",
     "ci:release": "lerna publish"
   },
   "prettier": "@notekunn/prettier-configs",
