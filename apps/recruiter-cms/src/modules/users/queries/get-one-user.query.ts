@@ -17,7 +17,7 @@ export class GetOneUserQueryHandler implements IQueryHandler<GetOneUserQuery> {
       where: {
         id: query.userId,
       },
-      relations: ['educations', 'experiences', 'skills'],
+      relations: ['educations', 'experiences', 'skills.skill'],
     });
   }
 }

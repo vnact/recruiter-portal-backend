@@ -8,6 +8,7 @@ import {
 } from '../dto/create-uuid-response.dto';
 import { CreateUUIDDto } from '../dto/create-uuid.dto';
 import { BadRequestException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 export class CreateUUIDCommand extends Command<CreateUUIDResponseDto> {
   constructor(public readonly dto: CreateUUIDDto) {
@@ -19,7 +20,10 @@ export class CreateUUIDCommand extends Command<CreateUUIDResponseDto> {
 export class CreateUUIDCommandHandler
   implements ICommandHandler<CreateUUIDCommand>
 {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
+  ) {}
   async execute(command: CreateUUIDCommand): Promise<CreateUUIDResponseDto> {
     const { dto } = command;
     const { data } = await firstValueFrom(

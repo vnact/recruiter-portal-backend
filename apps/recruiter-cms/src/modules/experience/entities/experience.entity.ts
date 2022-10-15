@@ -46,7 +46,7 @@ export class ExperienceEntity extends AbstractEntity {
     type: 'date',
     nullable: true,
   })
-  endDate?: Date;
+  endDate?: Date | string;
 
   @Column('text', {
     nullable: true,

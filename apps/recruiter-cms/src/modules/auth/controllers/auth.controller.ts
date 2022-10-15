@@ -1,8 +1,6 @@
 import { AuthUser } from '@decorators/auth-user.decorator';
-import { Roles } from '@decorators/roles.decorator';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { LocalAuthGuard } from '@guards/local-auth.guard';
-import { RolesGuard } from '@guards/roles.guard';
 import { GetOneUserQuery } from '@modules/users/queries/get-one-user.query';
 import {
   Body,
@@ -14,7 +12,6 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { UserRole } from '@vnact/recruiter-shared-enum';
 import { CreateTokenCommand } from '../commands/create-token.command';
 import { UserRegisterCommand } from '../commands/user-register.command';
 import { JwtClaimsDto } from '../dto/jwt-claims.dto';

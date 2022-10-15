@@ -12,6 +12,9 @@ import { Column, Entity, ManyToOne } from 'typeorm';
 
 @Entity('jobs')
 export class JobEntity extends AbstractEntity {
+  static findOneBy(arg0: { id: number }) {
+    throw new Error('Method not implemented.');
+  }
   @Column('varchar')
   title: string;
 
