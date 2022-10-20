@@ -129,7 +129,7 @@ export class InitDatabase1663565931109 implements MigrationInterface {
                 "name" character varying NOT NULL,
                 "role" character varying NOT NULL DEFAULT 'member',
                 "gender" character varying NOT NULL DEFAULT 'other',
-                "birth_day" date NOT NULL,
+                "birth_day" date ,
                 "height" double precision,
                 "weight" double precision,
                 "level" character varying DEFAULT 'no_exp',
