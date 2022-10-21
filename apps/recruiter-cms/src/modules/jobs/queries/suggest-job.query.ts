@@ -21,13 +21,15 @@ export class SuggestJobQueryHandler implements IQueryHandler<SuggestJobQuery> {
   async execute(query: SuggestJobQuery): Promise<JobEntity[]> {
     const { id } = query;
     const skills_user = await this.queryBus.execute(new GetAllSkillUser(id));
+    console.log(skills_user);
     const jobSuggestions = await this.jobRepository
       .createQueryBuilder('job')
       .where('job.id IN (:...skillIds)', {
-        skillIds: skills_user.map((skill) => skill.skillId),
+        skillIds: skills_user.map((skill) => skill.skillId) || [],
       })
       .orderBy('job.createdAt', 'DESC')
       .getMany();
+      console.log(jobSuggestions);
     return jobSuggestions;
   }
 }
