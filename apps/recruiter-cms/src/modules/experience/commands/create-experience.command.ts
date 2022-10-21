@@ -26,7 +26,6 @@ export class CreateExperienceHandler
   constructor(
     private readonly experienceRepository: ExperienceRepository,
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus,
   ) {}
   async execute(command: CreateExperienceCommand) {
     const { creteExperienceDto, userId } = command;

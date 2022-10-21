@@ -1,9 +1,10 @@
+import { AbstractEntity } from '@common/abstract.entity';
 import { SkillEntity } from '@modules/skills/entities/skill.entity';
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { JobEntity } from './job.entity';
 
 @Entity('job_skill')
-export class JobSkillEntity {
+export class JobSkillEntity extends AbstractEntity {
   @ManyToOne(() => JobEntity)
   job: JobEntity;
 

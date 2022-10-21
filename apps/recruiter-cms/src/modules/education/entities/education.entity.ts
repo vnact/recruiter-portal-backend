@@ -19,7 +19,7 @@ export class EducationEntity extends AbstractEntity {
   @Column({
     nullable: true,
   })
-  fieldOfStudy: string;
+  fieldOfStudy?: string;
 
   @Column({
     type: 'boolean',
@@ -39,11 +39,11 @@ export class EducationEntity extends AbstractEntity {
   @Column({
     nullable: true,
   })
-  grade?: Date;
+  grade?: string;
 
   @Column({
     nullable: true,
     type: 'text',
   })
-  description: string;
+  description?: string;
 }

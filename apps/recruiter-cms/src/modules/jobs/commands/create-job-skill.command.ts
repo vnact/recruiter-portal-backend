@@ -23,6 +23,7 @@ export class CreateJobSkillHandler
   ) {}
   async execute(command: CreateJobSkillCommand) {
     const { dto } = command;
+    console.log(dto);
     const job = await this.queryBus.execute(new GetOneJobQuery(dto.job_id));
     if (!job) {
       throw new NotFoundException('Job not found');
