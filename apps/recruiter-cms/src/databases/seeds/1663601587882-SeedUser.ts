@@ -40,6 +40,30 @@ export class SeedUser1663601587882 implements MigrationInterface {
       role: UserRole.Member,
       level: ExpLevel.NoExp,
     });
+
+    await queryRunner.manager.insert(UserEntity, {
+      email: 'son.lam@gmail.com',
+      name: 'Nguyễn Lam Sơn',
+      birthDay: moment('1/01/2000', 'DD/MM/YYYY').toDate(),
+      gender:Gender.Male,
+      highSchool: 'Trường Trung học phổ thông Thuận Thành số 3',
+      identityCardNumber: '123456789',
+      uid: '6348d2a9daceb469eb17bc02',
+      role: UserRole.Member,
+      level: ExpLevel.NoExp,
+    });
+
+    await queryRunner.manager.insert(UserEntity, {
+      email: 'cu.son@gmail.com',
+      name: 'Nguyễn Lam Sơn',
+      birthDay: moment('1/01/2000', 'DD/MM/YYYY').toDate(),
+      gender:Gender.Male,
+      highSchool: 'Trường Trung học phổ thông Thuận Thành số 3',
+      identityCardNumber: '123456789',
+      uid: '6350af9ea9f0b44b069ed38a',
+      role: UserRole.Member,
+      level: ExpLevel.NoExp,
+    });
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
@@ -48,6 +72,8 @@ export class SeedUser1663601587882 implements MigrationInterface {
         'daclip26@gmail.com',
         'cuong.nl5.kma@gmail.com',
         'lamsonkma@gmail.com',
+        'son.lam@gmail.com',
+        'cu.son@gmail.com'
       ]),
     });
   }

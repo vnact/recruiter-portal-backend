@@ -8,7 +8,8 @@ import {
   Gender,
   Workplace,
 } from '@vnact/recruiter-shared-enum';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { JobSkillEntity } from './job-skill.entity';
 
 @Entity('jobs')
 export class JobEntity extends AbstractEntity {
@@ -66,6 +67,9 @@ export class JobEntity extends AbstractEntity {
   @ManyToOne(() => CareerEntity)
   career: CareerEntity;
 
+  @OneToMany(() => JobSkillEntity, (jobSkill) => jobSkill.job)
+  jobSkill: JobSkillEntity[];
+
   @Column({
     enum: EmploymentType,
     array: true,
@@ -97,4 +101,6 @@ export class JobEntity extends AbstractEntity {
     default: 0,
   })
   recruits: number;
+
+
 }
