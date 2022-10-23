@@ -22,8 +22,6 @@ export class UserRegisterCommandHandler
     const {
       dto: { email, password, ...fields },
     } = command;
-    console.log(command);
-    Logger.log('đăng kí ');
     const { _id } = await this.commandBus.execute(
       new CreateUUIDCommand({
         account: email,
