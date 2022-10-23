@@ -39,8 +39,9 @@ export class UserEntity extends AbstractEntity {
 
   @Column({
     type: 'date',
+    nullable: true,
   })
-  birthDay: Date;
+  birthDay?: Date;
 
   @Column({
     type: 'double precision',

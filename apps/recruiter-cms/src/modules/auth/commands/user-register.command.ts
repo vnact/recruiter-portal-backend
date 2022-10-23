@@ -4,7 +4,7 @@ import { CreateUUIDCommand } from '@modules/uuid/commands/create-uuid.command';
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { ICommandHandler, CommandHandler, CommandBus } from '@nestjs/cqrs';
 import { UserRegisterDto } from '../dto/user-register.dto';
-
+import { Logger } from '@nestjs/common';
 export class UserRegisterCommand extends Command<UserEntity> {
   constructor(public readonly dto: UserRegisterDto) {
     super();
@@ -22,7 +22,6 @@ export class UserRegisterCommandHandler
     const {
       dto: { email, password, ...fields },
     } = command;
-
     const { _id } = await this.commandBus.execute(
       new CreateUUIDCommand({
         account: email,
