@@ -14,9 +14,6 @@ import { JobSkillEntity } from './job-skill.entity';
 
 @Entity('jobs')
 export class JobEntity extends AbstractEntity {
-  static findOneBy(arg0: { id: number }) {
-    throw new Error('Method not implemented.');
-  }
   @Column('varchar')
   title: string;
 
@@ -59,16 +56,19 @@ export class JobEntity extends AbstractEntity {
   })
   endDate?: Date;
 
-  @ManyToOne(() => CompanyEntity, (company) => company.jobs)
+  @ManyToOne(() => CompanyEntity, (company) => company.jobs, { eager: true })
   company: CompanyEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.postedJobs)
+  @ManyToOne(() => UserEntity, (user) => user.postedJobs, { eager: true })
   recruiter: UserEntity;
 
-  @ManyToOne(() => CareerEntity)
+  @ManyToOne(() => CareerEntity, { eager: true })
   career: CareerEntity;
 
-  @OneToMany(() => JobSkillEntity, (jobSkill) => jobSkill.job)
+  @OneToMany(() => JobSkillEntity, (jobSkill) => jobSkill.job, {
+    cascade: true,
+    eager: true,
+  })
   jobSkill: JobSkillEntity[];
 
   @OneToMany(() => ApplyEntity, (apply) => apply.job)

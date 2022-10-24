@@ -10,7 +10,7 @@ export class JobSkillEntity extends AbstractEntity {
   })
   job: JobEntity;
 
-  @ManyToOne(() => SkillEntity)
+  @ManyToOne(() => SkillEntity, { eager: true })
   skill: SkillEntity;
 
   @PrimaryColumn()

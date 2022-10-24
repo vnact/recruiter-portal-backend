@@ -14,6 +14,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ormConfig } from './configs/orm.config';
 import { FrontendModule } from './modules/frontend/frontend.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { CronModule } from '@modules/cron/cron.module';
 
 @Module({
   imports: [
@@ -26,6 +28,7 @@ import { FrontendModule } from './modules/frontend/frontend.module';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => config.get('database'),
     }),
+    ScheduleModule.forRoot(),
     UUIDModule,
     FrontendModule,
     AuthModule,
@@ -38,6 +41,7 @@ import { FrontendModule } from './modules/frontend/frontend.module';
     EducationModule,
     ApplyModule,
     JobLikeModule,
+    CronModule,
   ],
 })
 export class AppModule {}
