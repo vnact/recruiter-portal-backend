@@ -11,5 +11,5 @@ export const JobCommandHandlers = [
   UpdateJobCommandHandler,
   UpdateJobSkillCommandHandler,
   DeleteJobSkillCommandHandler,
-  DeleteJobCommandHandler
+  DeleteJobCommandHandler,
 ];

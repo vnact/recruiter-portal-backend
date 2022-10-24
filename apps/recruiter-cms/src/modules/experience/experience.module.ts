@@ -7,7 +7,7 @@ import { ExperienceQueryHandlers } from './queries';
 import { ExperienceRepository } from './repositories/experience.repository';
 
 @Module({
-  providers: [...ExperienceCommandHandlers,...ExperienceQueryHandlers],
+  providers: [...ExperienceCommandHandlers, ...ExperienceQueryHandlers],
   imports: [
     TypeOrmExModule.forCustomRepository([ExperienceRepository]),
     CqrsModule,

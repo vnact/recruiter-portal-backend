@@ -7,8 +7,8 @@ import { ApplyQueryHandlers } from './queries';
 import { ApplyRepository } from './repositories/apply.repository';
 
 @Module({
-  imports: [TypeOrmExModule.forCustomRepository([ApplyRepository]),CqrsModule],
+  imports: [TypeOrmExModule.forCustomRepository([ApplyRepository]), CqrsModule],
   controllers: [ApplyController],
-  providers: [...ApplyQueryHandlers,...ApplyCommandHandlers],
+  providers: [...ApplyQueryHandlers, ...ApplyCommandHandlers],
 })
 export class ApplyModule {}

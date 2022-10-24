@@ -17,7 +17,11 @@ export class GetOneEducationQueryHandler
   constructor(private readonly educationRepository: EducationRepository) {}
   async execute(query: GetOneEducationQuery): Promise<EducationEntity> {
     const { id } = query;
-    const education = await this.educationRepository.createQueryBuilder('education').where('education.id = :id',{id}).innerJoinAndSelect('education.user','user').getOne();
+    const education = await this.educationRepository
+      .createQueryBuilder('education')
+      .where('education.id = :id', { id })
+      .innerJoinAndSelect('education.user', 'user')
+      .getOne();
     if (!education) {
       throw new NotFoundException('Education not found');
     }

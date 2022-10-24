@@ -7,5 +7,5 @@ export const JobQueryHandlers = [
   SearchJobQuery,
   SuggestJobQueryHandler,
   GetOneJobQueryHandler,
-  GetOneJobSkillQueryHandler
+  GetOneJobSkillQueryHandler,
 ];

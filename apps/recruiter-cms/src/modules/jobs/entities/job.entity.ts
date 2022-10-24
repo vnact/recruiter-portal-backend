@@ -105,6 +105,4 @@ export class JobEntity extends AbstractEntity {
     default: 0,
   })
   recruits: number;
-
-
 }

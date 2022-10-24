@@ -27,7 +27,7 @@ export class DeleteUserSkillCommandHandler
       .where('user_skill.user_id = :userId', { userId })
       .andWhere('user_skill.skill_id IN  (:...skills_ids) ', {
         skills_ids: dto.skills_id,
-      })
+      });
     return query.execute();
   }
 }

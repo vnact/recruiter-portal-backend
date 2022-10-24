@@ -29,7 +29,7 @@ export class SuggestJobQueryHandler implements IQueryHandler<SuggestJobQuery> {
       })
       .orderBy('job.createdAt', 'DESC')
       .getMany();
-      console.log(jobSuggestions);
+    console.log(jobSuggestions);
     return jobSuggestions;
   }
 }

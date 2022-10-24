@@ -5,5 +5,5 @@ import { UpdateEducationCommandHandler } from './update-education.command';
 export const EducationCommandHandlers = [
   CreateEducationCommandHandler,
   UpdateEducationCommandHandler,
-  DeleteEducationCommandHandler
+  DeleteEducationCommandHandler,
 ];

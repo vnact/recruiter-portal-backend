@@ -28,7 +28,9 @@ export class UpdateEducationCommandHandler
     const { id, userId, dto } = command;
     const education = await this.queryBus.execute(new GetOneEducationQuery(id));
     if (education.user.id !== userId) {
-      throw new ForbiddenException('You are not allowed to update this education');
+      throw new ForbiddenException(
+        'You are not allowed to update this education',
+      );
     }
     const updatedEducation = await this.educationRepository.save({
       ...education,
