@@ -7,11 +7,7 @@ import { DataSource, MoreThanOrEqual } from 'typeorm';
 export class GetCurrentUpdatedQuery<T extends typeof BaseEntity> extends Query<
   T[]
 > {
-  constructor(
-    public readonly entity: T,
-    public readonly relations: string[],
-    public readonly lastestCron?: Date,
-  ) {
+  constructor(public readonly entity: T, public readonly lastestCron?: Date) {
     super();
   }
 }
@@ -23,7 +19,6 @@ export class GetCurrentUpdatedQueryHandler<T extends typeof BaseEntity>
   constructor(@Inject('datasource') private readonly dataSource: DataSource) {}
   execute(query: GetCurrentUpdatedQuery<T>): Promise<any> {
     return this.dataSource.manager.find(query.entity, {
-      relations: query.relations,
       where: query.lastestCron
         ? {
             updatedAt: MoreThanOrEqual(query.lastestCron),
