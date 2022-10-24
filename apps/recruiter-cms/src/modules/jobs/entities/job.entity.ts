@@ -1,4 +1,5 @@
 import { AbstractEntity } from '@common/abstract.entity';
+import { ApplyEntity } from '@modules/apply/entities/apply.entity';
 import { CareerEntity } from '@modules/careers/entities/career.entity';
 import { CompanyEntity } from '@modules/companies/entities/company.entity';
 import { UserEntity } from '@modules/users/entities/user.entity';
@@ -69,6 +70,9 @@ export class JobEntity extends AbstractEntity {
 
   @OneToMany(() => JobSkillEntity, (jobSkill) => jobSkill.job)
   jobSkill: JobSkillEntity[];
+
+  @OneToMany(() => ApplyEntity, (apply) => apply.job)
+  apply: ApplyEntity[];
 
   @Column({
     enum: EmploymentType,

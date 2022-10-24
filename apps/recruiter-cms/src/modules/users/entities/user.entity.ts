@@ -5,6 +5,7 @@ import { EducationEntity } from '@modules/education/entities/education.entity';
 import { ExperienceEntity } from '@modules/experience/entities/experience.entity';
 import { JobEntity } from '@modules/jobs/entities/job.entity';
 import { UserSkillEntity } from './user-skill.entity';
+import { ApplyEntity } from '@modules/apply/entities/apply.entity';
 
 @Entity('users')
 export class UserEntity extends AbstractEntity {
@@ -108,4 +109,7 @@ export class UserEntity extends AbstractEntity {
 
   @OneToMany(() => JobEntity, (job) => job.recruiter)
   postedJobs: JobEntity[];
+
+  @OneToMany(() => ApplyEntity, (apply) => apply.user)
+  appliedJobs: ApplyEntity[];
 }

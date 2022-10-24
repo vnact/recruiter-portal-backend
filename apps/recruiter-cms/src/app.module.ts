@@ -1,3 +1,4 @@
+import { ApplyModule } from '@modules/apply/apply.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { CareerModule } from '@modules/careers/career.module';
 import { CompanyModule } from '@modules/companies/company.module';
@@ -34,6 +35,7 @@ import { FrontendModule } from './modules/frontend/frontend.module';
     CareerModule,
     CompanyModule,
     EducationModule,
+    ApplyModule
   ],
 })
 export class AppModule {}
