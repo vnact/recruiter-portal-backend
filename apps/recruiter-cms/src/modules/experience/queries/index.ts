@@ -1,5 +1,3 @@
-import { GetOneExperienceQueryHandler } from "./get-one-experience.query";
+import { GetOneExperienceQueryHandler } from './get-one-experience.query';
 
-export const ExperienceQueryHandlers = [
-  GetOneExperienceQueryHandler,
-]
+export const ExperienceQueryHandlers = [GetOneExperienceQueryHandler];

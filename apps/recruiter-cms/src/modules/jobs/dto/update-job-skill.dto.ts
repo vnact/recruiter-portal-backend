@@ -1,4 +1,4 @@
-import { PartialType } from "@nestjs/swagger";
-import { CreateJobSkillDto } from "./create-job-skill";
+import { PartialType } from '@nestjs/swagger';
+import { CreateJobSkillDto } from './create-job-skill';
 
-export class UpdateJobSkillDto extends PartialType(CreateJobSkillDto){}
+export class UpdateJobSkillDto extends PartialType(CreateJobSkillDto) {}

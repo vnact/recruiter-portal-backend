@@ -1,7 +1,17 @@
 import { AuthUser } from '@decorators/auth-user.decorator';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { JwtClaimsDto } from '@modules/auth/dto/jwt-claims.dto';
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateJobCommand } from '../commands/create-job.command';
@@ -48,14 +58,18 @@ export class JobController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  async updateJob(@Param('id') id: number,@AuthUser() user: JwtClaimsDto ,@Body() dto: UpdateJobDto) {
-    return this.commandBus.execute(new UpdateJobCommand(id,user.id ,dto));
+  async updateJob(
+    @Param('id') id: number,
+    @AuthUser() user: JwtClaimsDto,
+    @Body() dto: UpdateJobDto,
+  ) {
+    return this.commandBus.execute(new UpdateJobCommand(id, user.id, dto));
   }
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async deleteJob(@AuthUser() user: JwtClaimsDto,@Param('id') id: number) {
-    return this.commandBus.execute(new DeleteJobCommand(id,user.id));
+  async deleteJob(@AuthUser() user: JwtClaimsDto, @Param('id') id: number) {
+    return this.commandBus.execute(new DeleteJobCommand(id, user.id));
   }
 }

@@ -35,7 +35,7 @@ import { FrontendModule } from './modules/frontend/frontend.module';
     CareerModule,
     CompanyModule,
     EducationModule,
-    ApplyModule
+    ApplyModule,
   ],
 })
 export class AppModule {}

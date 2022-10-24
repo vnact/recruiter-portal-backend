@@ -1,22 +1,24 @@
-import { GetOneJobQuery } from "@modules/jobs/queries/get-one-job.query";
-import { GetOneUserQuery } from "@modules/users/queries/get-one-user.query";
-import { Command } from "@nestjs-architects/typed-cqrs";
-import { CommandHandler, ICommandHandler, QueryBus } from "@nestjs/cqrs";
-import { ApplyEntity } from "../entities/apply.entity";
-import { ApplyRepository } from "../repositories/apply.repository";
+import { GetOneJobQuery } from '@modules/jobs/queries/get-one-job.query';
+import { GetOneUserQuery } from '@modules/users/queries/get-one-user.query';
+import { Command } from '@nestjs-architects/typed-cqrs';
+import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import { ApplyEntity } from '../entities/apply.entity';
+import { ApplyRepository } from '../repositories/apply.repository';
 
 export class CreateApplyCommand extends Command<ApplyEntity> {
-  constructor(
-    public readonly jobID: number,
-    public readonly userId: number,
-  ) {
+  constructor(public readonly jobID: number, public readonly userId: number) {
     super();
   }
 }
 
 @CommandHandler(CreateApplyCommand)
-export class CreateApplyCommandHandler implements ICommandHandler<CreateApplyCommand> {
-  constructor(private readonly applyRepository:ApplyRepository, private readonly queryBus:QueryBus) {}
+export class CreateApplyCommandHandler
+  implements ICommandHandler<CreateApplyCommand>
+{
+  constructor(
+    private readonly applyRepository: ApplyRepository,
+    private readonly queryBus: QueryBus,
+  ) {}
 
   async execute(command: CreateApplyCommand) {
     const { jobID, userId } = command;

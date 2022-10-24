@@ -3,7 +3,7 @@ import { NotFoundException } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { JobEntity } from '../entities/job.entity';
 import { JobRepository } from '../repositories/job.repository';
-import {JobSkillEntity } from '../entities/job-skill.entity'
+import { JobSkillEntity } from '../entities/job-skill.entity';
 export class GetOneJobQuery extends Query<JobEntity> {
   constructor(public readonly id: number) {
     super();
@@ -15,14 +15,14 @@ export class GetOneJobQueryHandler implements IQueryHandler<GetOneJobQuery> {
   constructor(private readonly jobRepository: JobRepository) {}
   async execute(query: GetOneJobQuery): Promise<JobEntity> {
     const { id } = query;
-    
+
     const job = await this.jobRepository.find({
-      relations: ['jobSkill','recruiter'],
+      relations: ['jobSkill', 'recruiter'],
       where: { id: id },
-    })
+    });
     if (!job) {
       throw new NotFoundException('Job not found');
     }
-    return job[0];  
+    return job[0];
   }
 }

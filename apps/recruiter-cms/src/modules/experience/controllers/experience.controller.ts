@@ -1,7 +1,15 @@
 import { AuthUser } from '@decorators/auth-user.decorator';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { JwtClaimsDto } from '@modules/auth/dto/jwt-claims.dto';
-import { Body, Controller, Delete, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateExperienceCommand } from '../commands/create-experience.command';
@@ -27,14 +35,18 @@ export class ExperienceController {
   }
 
   @Patch(':id')
-  update( @Param('id') id: number, @AuthUser() user: JwtClaimsDto,@Body() updateExperienceDto: UpdateExperienceDto) {
+  update(
+    @Param('id') id: number,
+    @AuthUser() user: JwtClaimsDto,
+    @Body() updateExperienceDto: UpdateExperienceDto,
+  ) {
     return this.commandBus.execute(
       new UpdateExperienceCommand(id, user.id, updateExperienceDto),
     );
   }
 
   @Delete(':id')
-  delete( @Param('id') id: number, @AuthUser() user: JwtClaimsDto) {
+  delete(@Param('id') id: number, @AuthUser() user: JwtClaimsDto) {
     return this.commandBus.execute(new DeleteExperienceCommand(id, user.id));
   }
 }
