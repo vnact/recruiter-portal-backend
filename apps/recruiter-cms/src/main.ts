@@ -7,7 +7,6 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{cors:true});
   app.enableCors({
@@ -18,7 +17,12 @@ async function bootstrap() {
 
   setupSwagger(app);
   const reflector = app.get(Reflector);
-
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+    credentials: true,
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -26,11 +30,10 @@ async function bootstrap() {
   );
 
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
-
   const configService = app.get(ConfigService);
 
   const port = configService.get<number>('SERVICE_PORT');
-  const hostname = configService.get<string>('SERVICE_HOST', '0.0.0.0');
+  const hostname = configService.get<string>('SERVICE_HOST', '192.168.0.101');
 
   await app.listen(port, hostname);
 

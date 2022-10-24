@@ -6,6 +6,7 @@ import {
   Body,
   Controller,
   Get,
+  Logger,
   Post,
   Request,
   UseGuards,
@@ -31,6 +32,7 @@ export class AuthController {
   })
   @UseGuards(LocalAuthGuard)
   async login(@Request() req) {
+    Logger.log('login here hahah');
     const token = await this.commandBus.execute(
       new CreateTokenCommand(req.user),
     );
@@ -51,7 +53,6 @@ export class AuthController {
   async register(@Body() dto: UserRegisterDto) {
     const user = await this.commandBus.execute(new UserRegisterCommand(dto));
     const token = await this.commandBus.execute(new CreateTokenCommand(user));
-
     return {
       user,
       token,
