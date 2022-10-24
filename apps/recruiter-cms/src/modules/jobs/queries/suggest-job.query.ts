@@ -1,7 +1,5 @@
 import { GetAllSkillUser } from '@modules/users/queries/get-all-skill-of -user';
 import { Query } from '@nestjs-architects/typed-cqrs';
-import { NotFoundException } from '@nestjs/common';
-import { CONFIGURABLE_MODULE_ID } from '@nestjs/common/module-utils/constants';
 import { IQueryHandler, QueryBus, QueryHandler } from '@nestjs/cqrs';
 import { JobEntity } from '../entities/job.entity';
 import { JobRepository } from '../repositories/job.repository';

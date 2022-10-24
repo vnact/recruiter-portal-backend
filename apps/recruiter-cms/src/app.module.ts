@@ -16,6 +16,7 @@ import { ormConfig } from './configs/orm.config';
 import { FrontendModule } from './modules/frontend/frontend.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CronModule } from '@modules/cron/cron.module';
+import { ElasticSearchModule } from '@modules/elasticsearch/elasticsearch.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { CronModule } from '@modules/cron/cron.module';
     ApplyModule,
     JobLikeModule,
     CronModule,
+    ElasticSearchModule,
   ],
 })
 export class AppModule {}
