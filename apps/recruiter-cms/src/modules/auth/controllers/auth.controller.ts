@@ -32,7 +32,6 @@ export class AuthController {
   })
   @UseGuards(LocalAuthGuard)
   async login(@Request() req) {
-    Logger.log('login here hahah');
     const token = await this.commandBus.execute(
       new CreateTokenCommand(req.user),
     );

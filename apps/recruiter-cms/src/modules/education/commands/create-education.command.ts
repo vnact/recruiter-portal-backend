@@ -1,7 +1,8 @@
 import { GetOneUserQuery } from '@modules/users/queries/get-one-user.query';
 import { Command } from '@nestjs-architects/typed-cqrs';
-import { NotFoundException } from '@nestjs/common';
+import { NotFoundException, Logger } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import moment from 'moment';
 import { CreateEducationDto } from '../dto/create-education.dto';
 import { EducationEntity } from '../entities/education.entity';
 import { EducationRepository } from '../repositories/education.repository';
@@ -25,11 +26,14 @@ export class CreateEducationCommandHandler
   ) {}
   async execute(command: CreateEducationCommand): Promise<EducationEntity> {
     const { userId, dto } = command;
+    Logger.log('1');
     const user = await this.queryBus.execute(new GetOneUserQuery(userId));
     if (!user) {
       throw new NotFoundException('User not found');
     }
-
+    Logger.log('2');
+    // const startTime = moment(dto.startTime).toDate();
+    // const endTime = moment(dto.endTime).toDate();
     const education = this.educationRepository.create({
       school: dto.school,
       degree: dto.degree,
@@ -42,6 +46,7 @@ export class CreateEducationCommandHandler
       createdById: userId,
     });
     education.user = user;
+    Logger.log('3');
     return this.educationRepository.save(education);
   }
 }
