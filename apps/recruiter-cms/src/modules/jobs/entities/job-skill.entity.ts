@@ -5,7 +5,9 @@ import { JobEntity } from './job.entity';
 
 @Entity('job_skill')
 export class JobSkillEntity extends AbstractEntity {
-  @ManyToOne(() => JobEntity)
+  @ManyToOne(() => JobEntity, {
+    onDelete: 'CASCADE',
+  })
   job: JobEntity;
 
   @ManyToOne(() => SkillEntity)

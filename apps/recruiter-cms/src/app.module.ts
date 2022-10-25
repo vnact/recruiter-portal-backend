@@ -4,6 +4,7 @@ import { CareerModule } from '@modules/careers/career.module';
 import { CompanyModule } from '@modules/companies/company.module';
 import { EducationModule } from '@modules/education/educetion.module';
 import { ExperienceModule } from '@modules/experience/experience.module';
+import { JobLikeModule } from '@modules/joblike/joblike.module';
 import { JobModule } from '@modules/jobs/job.module';
 import { SkillModule } from '@modules/skills/skill.module';
 import { UserModule } from '@modules/users/user.module';
@@ -36,6 +37,7 @@ import { FrontendModule } from './modules/frontend/frontend.module';
     CompanyModule,
     EducationModule,
     ApplyModule,
+    JobLikeModule,
   ],
 })
 export class AppModule {}
