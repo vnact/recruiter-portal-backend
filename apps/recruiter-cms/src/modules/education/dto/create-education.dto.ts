@@ -30,7 +30,7 @@ export class CreateEducationDto {
     example: '2022-01-01',
   })
   @IsDateString()
-  // @IsOptional()
+  @IsOptional()
   endTime?: Date;
 
   @ApiProperty()
