@@ -7,7 +7,7 @@ ConfigModule.forRoot({
   load: [ormConfig],
 });
 
-const typeormConfig = <DataSourceOptions>ormConfig();
+export const typeormConfig = <DataSourceOptions>ormConfig();
 
 const dataSource = new DataSource(typeormConfig);
 

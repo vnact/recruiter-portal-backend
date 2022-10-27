@@ -1,5 +1,4 @@
 import { Command } from '@nestjs-architects/typed-cqrs';
-import { BadRequestException } from '@nestjs/common';
 import { ICommandHandler, CommandHandler } from '@nestjs/cqrs';
 import { UpdateUserSkillDto } from '../dto/update-user-skill';
 import { UserSkillEntity } from '../entities/user-skill.entity';

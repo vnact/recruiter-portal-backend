@@ -21,6 +21,7 @@ import { CreateJobDto } from '../dto/create-job.dto';
 import { SearchJobDto } from '../dto/search-job.dto';
 import { UpdateJobDto } from '../dto/update-job.dto';
 import { GetOneJobQuery } from '../queries/get-one-job.query';
+import { SearchJobQuery } from '../queries/search-job.query';
 import { SuggestJobQuery } from '../queries/suggest-job.query';
 
 @Controller('jobs')
@@ -32,7 +33,7 @@ export class JobController {
   ) {}
   @Get('search')
   searchJob(@Query() dto: SearchJobDto) {
-    return dto;
+    return this.queryBus.execute(new SearchJobQuery(dto));
   }
 
   @ApiBearerAuth()
