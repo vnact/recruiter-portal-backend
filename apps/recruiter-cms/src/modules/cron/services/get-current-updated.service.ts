@@ -14,12 +14,12 @@ export class GetCurrentUpdatedService {
     private readonly commandBus: CommandBus,
   ) {}
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_5_MINUTES)
   async handleCron() {
     const jobs = await this.queryBus.execute(
       new GetCurrentUpdatedQuery(
         JobEntity,
-        moment().subtract(10, 'minutes').toDate(),
+        moment().subtract(5, 'minutes').toDate(),
       ),
     );
 
