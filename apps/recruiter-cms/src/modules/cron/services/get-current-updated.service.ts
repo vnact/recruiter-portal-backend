@@ -19,9 +19,12 @@ export class GetCurrentUpdatedService {
     const jobs = await this.queryBus.execute(
       new GetCurrentUpdatedQuery(
         JobEntity,
-        moment().subtract(1000, 'minutes').toDate(),
+        moment().subtract(10, 'minutes').toDate(),
       ),
     );
-    await this.commandBus.execute(new SyncElasticSearchCommand(jobs, 'jobs'));
+
+    if (jobs.length > 0) {
+      await this.commandBus.execute(new SyncElasticSearchCommand(jobs, 'jobs'));
+    }
   }
 }

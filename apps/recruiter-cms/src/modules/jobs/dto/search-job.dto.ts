@@ -7,6 +7,7 @@ import {
   IsLatitude,
   IsLongitude,
   IsNumber,
+  IsOptional,
   Max,
   Min,
 } from 'class-validator';
@@ -33,19 +34,23 @@ export class SearchJobDto extends PaginationDto {
     default: [],
     enum: ExpLevel,
     isArray: true,
+    required: false,
   })
   @IsEnum(ExpLevel, {
     each: true,
   })
-  levels: ExpLevel[];
+  @IsOptional()
+  levels?: ExpLevel[];
 
   @ApiProperty({
     default: [],
     enum: EmploymentType,
     isArray: true,
+    required: false,
   })
   @IsEnum(EmploymentType, {
     each: true,
   })
-  jobTypes: EmploymentType[];
+  @IsOptional()
+  jobTypes?: EmploymentType[];
 }

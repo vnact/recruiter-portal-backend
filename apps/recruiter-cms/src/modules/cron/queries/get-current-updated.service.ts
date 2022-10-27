@@ -5,7 +5,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { DataSource, MoreThanOrEqual } from 'typeorm';
 
 export class GetCurrentUpdatedQuery<T extends typeof BaseEntity> extends Query<
-  T[]
+  InstanceType<T>[]
 > {
   constructor(public readonly entity: T, public readonly lastestCron?: Date) {
     super();

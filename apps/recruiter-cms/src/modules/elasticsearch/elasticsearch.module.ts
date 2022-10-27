@@ -1,3 +1,4 @@
+import { ElasticsearchSearchQueryHandler } from './queries/elasticsearch-search.query';
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
@@ -14,6 +15,9 @@ import { BulkInsertElasticsearchCommandHandler } from './commands/bulk-insert.co
       },
     }),
   ],
-  providers: [BulkInsertElasticsearchCommandHandler],
+  providers: [
+    BulkInsertElasticsearchCommandHandler,
+    ElasticsearchSearchQueryHandler,
+  ],
 })
 export class ElasticSearchModule {}
