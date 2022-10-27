@@ -18,7 +18,7 @@ import { UpdateExperienceCommand } from '../commands/update-experience.command';
 import { CreateExperienceDto } from '../dto/create-experience.dto';
 import { UpdateExperienceDto } from '../dto/update-experience.dto';
 
-@ApiTags('Experience')
+@ApiTags('experience')
 @Controller('experience')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)

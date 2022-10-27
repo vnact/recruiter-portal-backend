@@ -2,7 +2,7 @@ import { ApplyModule } from '@modules/apply/apply.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { CareerModule } from '@modules/careers/career.module';
 import { CompanyModule } from '@modules/companies/company.module';
-import { EducationModule } from '@modules/education/educetion.module';
+import { EducationModule } from '@modules/education/education.module';
 import { ExperienceModule } from '@modules/experience/experience.module';
 import { FavoriteJobModule } from '@modules/favorite/favorite-job.module';
 import { JobModule } from '@modules/jobs/job.module';
