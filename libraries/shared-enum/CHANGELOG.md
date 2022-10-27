@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.8.2 (2022-10-27)
+
+### Bug Fixes
+
+- rename module ([4cfa904](https://github.com/vnact/recruiter-portal-backend/commit/4cfa904e79f8e106178ce600a34478789d366eb6))
+
 ## 1.8.1 (2022-10-27)
 
 **Note:** Version bump only for package @vnact/recruiter-shared-enum

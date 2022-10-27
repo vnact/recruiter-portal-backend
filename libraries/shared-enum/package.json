@@ -1,6 +1,6 @@
 {
   "name": "@vnact/recruiter-shared-enum",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "Shared enum",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
