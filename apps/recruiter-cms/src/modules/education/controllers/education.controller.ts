@@ -19,6 +19,7 @@ import { DeleteEducationCommand } from '../commands/delete-education.command';
 import { UpdateEducationCommand } from '../commands/update-education.command';
 import { CreateEducationDto } from '../dto/create-education.dto';
 import { GetByUserEducationQuery } from '../queries/get-by-user-education.query';
+import { GetOneEducationQuery } from '../queries/get-one-education.query';
 @ApiTags('education')
 @Controller('education')
 export class EducationController {
@@ -61,5 +62,11 @@ export class EducationController {
   @Delete(':id')
   async delete(@AuthUser() user: JwtClaimsDto, @Param('id') id: number) {
     return this.commandBus.execute(new DeleteEducationCommand(id, user.id));
+  }
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  async getById(@AuthUser() user: JwtClaimsDto, @Param('id') id: number) {
+    return this.queryBus.execute(new GetOneEducationQuery(id));
   }
 }
