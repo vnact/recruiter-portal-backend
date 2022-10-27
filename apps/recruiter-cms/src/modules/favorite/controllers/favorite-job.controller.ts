@@ -4,31 +4,28 @@ import { JwtClaimsDto } from '@modules/auth/dto/jwt-claims.dto';
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { CreateJobLikeCommand } from '../commands/createJobLike.command';
-import { CreateJobLikeDto } from '../dto/create-jobLike.dto';
-import { GetAllJobLikeQuery } from '../queries/get-all-joblike.dto';
+import { AddFavoriteJobCommand } from '../commands/add-favorite-job.command';
+import { AddFavoriteJobDto } from '../dto/add-favorite-job.dto';
+import { GetAllFavoriteJobQuery } from '../queries/get-all-favorite-job.query';
 
-@ApiTags('JobLike')
+@ApiTags('favorite')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('job-like')
-export class JobLikeController {
+@Controller('favorite-job')
+export class FavoriteJobController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
   @Post()
-  async create(
-    @AuthUser() user: JwtClaimsDto,
-    @Body() createJobLikeDto: CreateJobLikeDto,
-  ) {
+  async create(@AuthUser() user: JwtClaimsDto, @Body() dto: AddFavoriteJobDto) {
     return this.commandBus.execute(
-      new CreateJobLikeCommand(createJobLikeDto.jobId, user.id),
+      new AddFavoriteJobCommand(dto.jobId, user.id),
     );
   }
 
   @Get('me')
   async getJobLikes(@AuthUser() user: JwtClaimsDto) {
-    return this.queryBus.execute(new GetAllJobLikeQuery(user.id));
+    return this.queryBus.execute(new GetAllFavoriteJobQuery(user.id));
   }
 }

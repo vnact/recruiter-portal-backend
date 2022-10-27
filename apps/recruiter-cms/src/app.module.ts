@@ -4,7 +4,7 @@ import { CareerModule } from '@modules/careers/career.module';
 import { CompanyModule } from '@modules/companies/company.module';
 import { EducationModule } from '@modules/education/educetion.module';
 import { ExperienceModule } from '@modules/experience/experience.module';
-import { JobLikeModule } from '@modules/joblike/joblike.module';
+import { FavoriteJobModule } from '@modules/favorite/favorite-job.module';
 import { JobModule } from '@modules/jobs/job.module';
 import { SkillModule } from '@modules/skills/skill.module';
 import { UserModule } from '@modules/users/user.module';
@@ -41,7 +41,7 @@ import { ElasticSearchModule } from '@modules/elasticsearch/elasticsearch.module
     CompanyModule,
     EducationModule,
     ApplyModule,
-    JobLikeModule,
+    FavoriteJobModule,
     CronModule,
     ElasticSearchModule,
   ],
