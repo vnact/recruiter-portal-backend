@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.9.0 (2022-10-27)
+
+### Features
+
+- cron export ([#17](https://github.com/vnact/recruiter-portal-backend/issues/17)) ([ccd0795](https://github.com/vnact/recruiter-portal-backend/commit/ccd079571bc4cf2ef8f9bacf0af597fc431443fc))
+
 ## 1.8.2 (2022-10-27)
 
 ### Bug Fixes
