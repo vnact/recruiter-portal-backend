@@ -5,6 +5,7 @@ import { GetCurrentUpdatedService } from './services/get-current-updated.service
 import { typeormConfig } from '../../ormconfig';
 import { DataSource } from 'typeorm';
 import { CqrsModule } from '@nestjs/cqrs';
+import { CronController } from './controller/cron.controller';
 
 const dataSource = new DataSource(typeormConfig);
 
@@ -19,6 +20,7 @@ const dataSource = new DataSource(typeormConfig);
     },
   ],
   imports: [CqrsModule],
+  controllers: [CronController],
 })
 export class CronModule implements OnModuleInit {
   async onModuleInit() {
