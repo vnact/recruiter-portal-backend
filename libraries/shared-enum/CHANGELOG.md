@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.8.0 (2022-10-27)
+
+### Features
+
+- add elasticsearch ([#13](https://github.com/vnact/recruiter-portal-backend/issues/13)) ([31ac55d](https://github.com/vnact/recruiter-portal-backend/commit/31ac55d5dccf57bad8c8bb0382c5fd7892076ba6))
+
 # 1.7.0 (2022-09-26)
 
 ### Features
