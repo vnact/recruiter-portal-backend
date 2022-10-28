@@ -19,6 +19,18 @@ export class GetOneUserByEmailQueryHandler
       where: {
         email: query.email,
       },
+      relations: {
+        educations: true,
+        experiences: {
+          company: true,
+        },
+        favoriteJobs: {
+          job: true,
+        },
+        appliedJobs: {
+          job: true,
+        },
+      },
     });
   }
 }

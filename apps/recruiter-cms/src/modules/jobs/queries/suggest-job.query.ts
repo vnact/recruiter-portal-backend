@@ -1,4 +1,4 @@
-import { GetAllSkillUser } from '@modules/users/queries/get-all-skill-of -user';
+import { GetAllSkillUser } from '@modules/users/queries/get-all-skill-of-user.query';
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryBus, QueryHandler } from '@nestjs/cqrs';
 import { JobEntity } from '../entities/job.entity';
@@ -27,7 +27,6 @@ export class SuggestJobQueryHandler implements IQueryHandler<SuggestJobQuery> {
       })
       .orderBy('job.createdAt', 'DESC')
       .getMany();
-    console.log(jobSuggestions);
     return jobSuggestions;
   }
 }
