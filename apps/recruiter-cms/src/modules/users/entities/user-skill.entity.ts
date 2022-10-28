@@ -11,7 +11,7 @@ export class UserSkillEntity {
   userId: number;
 
   @ManyToOne(() => SkillEntity)
-  skill: UserEntity;
+  skill: SkillEntity;
 
   @PrimaryColumn()
   skillId: number;

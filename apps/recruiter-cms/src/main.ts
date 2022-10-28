@@ -4,9 +4,11 @@ import { setupSwagger } from './swagger';
 import {
   ClassSerializerInterceptor,
   Logger,
+  Req,
   ValidationPipe,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import * as morgan from 'morgan';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   app.enableCors({
@@ -23,6 +25,12 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Accept, Authorization',
     credentials: true,
   });
+  morgan.token('body', (req, res) => JSON.stringify(req.body));
+  app.use(
+    morgan(
+      ':method :url :status :response-time ms - :res[content-length] :body - :req[content-length]',
+    ),
+  );
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,

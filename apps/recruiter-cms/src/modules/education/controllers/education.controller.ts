@@ -8,18 +8,25 @@ import {
   UseGuards,
   Patch,
   Param,
+  Get,
   Delete,
+  Logger,
 } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateEducationCommand } from '../commands/create-education.command';
 import { DeleteEducationCommand } from '../commands/delete-education.command';
 import { UpdateEducationCommand } from '../commands/update-education.command';
 import { CreateEducationDto } from '../dto/create-education.dto';
+import { GetByUserEducationQuery } from '../queries/get-by-user-education.query';
+import { GetOneEducationQuery } from '../queries/get-one-education.query';
 @ApiTags('education')
 @Controller('education')
 export class EducationController {
-  constructor(private readonly commandBus: CommandBus) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) {}
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -28,6 +35,7 @@ export class EducationController {
     @AuthUser() user: JwtClaimsDto,
     @Body() dto: CreateEducationDto,
   ) {
+    Logger.log('Create Education');
     return this.commandBus.execute(new CreateEducationCommand(user.id, dto));
   }
 
@@ -43,11 +51,22 @@ export class EducationController {
       new UpdateEducationCommand(id, user.id, dto),
     );
   }
-
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async getByUser(@AuthUser() user: JwtClaimsDto) {
+    return this.queryBus.execute(new GetByUserEducationQuery(user.id));
+  }
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@AuthUser() user: JwtClaimsDto, @Param('id') id: number) {
     return this.commandBus.execute(new DeleteEducationCommand(id, user.id));
+  }
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  async getById(@AuthUser() user: JwtClaimsDto, @Param('id') id: number) {
+    return this.queryBus.execute(new GetOneEducationQuery(id));
   }
 }

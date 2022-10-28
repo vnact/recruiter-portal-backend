@@ -20,11 +20,15 @@ export class CreateEducationDto {
   @IsBoolean()
   isCompleted: boolean;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: '2022-01-01',
+  })
   @IsDateString()
   startTime: Date;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: '2022-01-01',
+  })
   @IsDateString()
   @IsOptional()
   endTime?: Date;

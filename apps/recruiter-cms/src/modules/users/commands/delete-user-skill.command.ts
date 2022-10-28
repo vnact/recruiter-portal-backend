@@ -1,6 +1,7 @@
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { BadRequestException } from '@nestjs/common';
 import { ICommandHandler, CommandHandler } from '@nestjs/cqrs';
+import { DeleteUserSkillDto } from '../dto/delete-user-skill.dto';
 import { UpdateUserSkillDto } from '../dto/update-user-skill';
 import { UserSkillEntity } from '../entities/user-skill.entity';
 import { UserSkillRepository } from '../repositories/user-skill.repository';
@@ -8,7 +9,7 @@ import { UserSkillRepository } from '../repositories/user-skill.repository';
 export class DeleteUserSkillCommand extends Command<UserSkillEntity> {
   constructor(
     public readonly userId: number,
-    public readonly dto: UpdateUserSkillDto,
+    public readonly dto: DeleteUserSkillDto,
   ) {
     super();
   }
