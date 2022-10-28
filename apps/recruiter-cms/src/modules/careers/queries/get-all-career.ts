@@ -18,6 +18,11 @@ export class GetAllCarrerQueryHandler
 {
   constructor(private readonly careerRepository: CareerRepository) {}
   async execute(): Promise<CareerEntity[]> {
-    return this.careerRepository.find();
+    return this.careerRepository.find({
+      relations: {
+        parent: true,
+        industry: true,
+      },
+    });
   }
 }

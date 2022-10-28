@@ -1,3 +1,5 @@
+import { GetOneCareerQuery } from '@modules/careers/queries/get-one-career';
+import { GetOneCompanyQuery } from '@modules/companies/queries/get-one-company.query';
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { ForbiddenException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
@@ -29,11 +31,22 @@ export class UpdateExperienceCommandHandler
     const experience = await this.queryBus.execute(
       new GetOneExperienceQuery(id),
     );
+    const career = await this.queryBus.execute(
+      new GetOneCareerQuery(dto.career_id),
+    );
+    const company = await this.queryBus.execute(
+      new GetOneCompanyQuery(dto.company_id),
+    );
     if (experience.user.id !== userId) {
       throw new ForbiddenException(
         'You are not allowed to update this experience',
       );
     }
-    return this.experienceRepository.save({ ...experience, ...dto });
+    return this.experienceRepository.save({
+      ...experience,
+      ...dto,
+      career,
+      company,
+    });
   }
 }

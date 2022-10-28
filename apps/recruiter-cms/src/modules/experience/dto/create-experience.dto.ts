@@ -1,12 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { EmploymentType } from 'src/constants/enum';
-import {
-  IsBoolean,
-  IsDateString,
-  IsEnum,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { EmploymentType } from '@vnact/recruiter-shared-enum';
+import { IsDateString, IsEnum, IsNumber, IsString } from 'class-validator';
 
 export class CreateExperienceDto {
   @ApiProperty()
@@ -37,7 +31,7 @@ export class CreateExperienceDto {
 
   @ApiProperty()
   @IsString()
-  description: string;
+  description?: string;
 
   @ApiProperty()
   @IsNumber()

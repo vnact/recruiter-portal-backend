@@ -5,25 +5,30 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateExperienceCommand } from '../commands/create-experience.command';
 import { DeleteExperienceCommand } from '../commands/delete-experience.command';
 import { UpdateExperienceCommand } from '../commands/update-experience.command';
 import { CreateExperienceDto } from '../dto/create-experience.dto';
 import { UpdateExperienceDto } from '../dto/update-experience.dto';
+import { GetOneExperienceQuery } from '../queries/get-one-experience.query';
 
 @ApiTags('experience')
 @Controller('experience')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 export class ExperienceController {
-  constructor(private readonly commandBus: CommandBus) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) {}
   @Post()
   create(
     @AuthUser() user: JwtClaimsDto,
@@ -33,7 +38,10 @@ export class ExperienceController {
       new CreateExperienceCommand(user.id, createExperienceDto),
     );
   }
-
+  @Get(':id')
+  getOneById(@Param('id') id: number) {
+    return this.queryBus.execute(new GetOneExperienceQuery(id));
+  }
   @Patch(':id')
   update(
     @Param('id') id: number,
