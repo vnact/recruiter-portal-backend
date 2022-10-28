@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.10.2 (2022-10-28)
+
+### Bug Fixes
+
+- get one user query ([#20](https://github.com/vnact/recruiter-portal-backend/issues/20)) ([e7884a8](https://github.com/vnact/recruiter-portal-backend/commit/e7884a8a11e39bf75f9115398fe4ef6d39df8312))
+
 ## 1.10.1 (2022-10-28)
 
 **Note:** Version bump only for package @vnact/recruiter-shared-enum
