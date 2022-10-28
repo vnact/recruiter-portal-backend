@@ -4,6 +4,7 @@ import { setupSwagger } from './swagger';
 import {
   ClassSerializerInterceptor,
   Logger,
+  Req,
   ValidationPipe,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -24,7 +25,12 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Accept, Authorization',
     credentials: true,
   });
-  app.use(morgan('combined'));
+  morgan.token('body', (req, res) => JSON.stringify(req.body));
+  app.use(
+    morgan(
+      ':method :url :status :response-time ms - :res[content-length] :body - :req[content-length]',
+    ),
+  );
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,

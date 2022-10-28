@@ -14,6 +14,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateUserSkillCommand } from '../commands/create-user-skill.command';
 import { DeleteUserSkillCommand } from '../commands/delete-user-skill.command';
 import { CreateUserSkillDto } from '../dto/create-user-skill.dto';
+import { DeleteUserSkillDto } from '../dto/delete-user-skill.dto';
 import { UpdateUserSkillDto } from '../dto/update-user-skill';
 
 @ApiTags('user-skill')
@@ -31,7 +32,7 @@ export class UserSkillController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Delete()
-  delete(@AuthUser() user: JwtClaimsDto, @Body() dto: UpdateUserSkillDto) {
+  delete(@AuthUser() user: JwtClaimsDto, @Body() dto: DeleteUserSkillDto) {
     return this.commandBus.execute(new DeleteUserSkillCommand(user.id, dto));
   }
 }

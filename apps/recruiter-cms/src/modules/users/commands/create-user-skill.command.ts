@@ -1,5 +1,5 @@
 import { Command } from '@nestjs-architects/typed-cqrs';
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { ICommandHandler, CommandHandler } from '@nestjs/cqrs';
 import { CreateUserSkillDto } from '../dto/create-user-skill.dto';
 import { UserSkillEntity } from '../entities/user-skill.entity';
@@ -28,13 +28,14 @@ export class CreateUserSkillHandler
       })
       .getMany();
     if (checkSkill.length) {
-      throw new BadRequestException('Skill already exists');
+      throw new HttpException('Skill already exists', HttpStatus.BAD_REQUEST);
     }
     return Promise.all(
       dto.skills_id.map(async (skillId) => {
         const user_skill = this.userSkillRepository.create({
           userId: userId,
           skillId,
+          certificate: dto.certificate,
         });
         await this.userSkillRepository.save(user_skill);
       }),
