@@ -1,6 +1,6 @@
 import { PaginationDto } from '@common/dto/pagination.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { ExpLevel, EmploymentType } from '@vnact/recruiter-shared-enum';
+import { ExpLevel, EmploymentType } from 'src/constants/enum';
 import { Transform } from 'class-transformer';
 import {
   IsEnum,

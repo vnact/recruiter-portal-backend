@@ -1,4 +1,4 @@
-import { UserRole } from '@vnact/recruiter-shared-enum';
+import { UserRole } from 'src/constants/enum';
 import { ROLES_KEY } from '@decorators/roles.decorator';
 import { JwtClaimsDto } from '@modules/auth/dto/jwt-claims.dto';
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';

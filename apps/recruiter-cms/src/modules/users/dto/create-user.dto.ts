@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Gender } from '@vnact/recruiter-shared-enum';
+import { Gender } from 'src/constants/enum';
 import {
   IsEnum,
   IsOptional,

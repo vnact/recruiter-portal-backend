@@ -1,7 +1,7 @@
 import { UserRepository } from '../repositories/user.repository';
 import { Query } from '@nestjs-architects/typed-cqrs';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { UserRole } from '@vnact/recruiter-shared-enum';
+import { UserRole } from 'src/constants/enum';
 
 export class GetRoleRecordQuery extends Query<UserRole> {
   constructor(public readonly userId: number) {
