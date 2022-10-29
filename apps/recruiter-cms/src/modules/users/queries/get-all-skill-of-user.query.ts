@@ -13,11 +13,16 @@ export class GetAllSkillUserHandler implements IQueryHandler<GetAllSkillUser> {
   constructor(private readonly userSkillRepository: UserSkillRepository) {}
   async execute(query: GetAllSkillUser) {
     const { userId } = query;
-    const skills = await this.userSkillRepository
-      .createQueryBuilder('user_skill')
-      .innerJoinAndSelect('user_skill.skill', 'skill')
-      .where('user_skill.user_id = :userId', { userId })
-      .getMany();
+    const skills = await this.userSkillRepository.find({
+      where: {
+        user: {
+          id: userId,
+        },
+      },
+      relations: {
+        skill: true,
+      },
+    });
     return skills;
   }
 }
