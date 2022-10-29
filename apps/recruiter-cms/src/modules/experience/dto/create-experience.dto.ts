@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { EmploymentType } from '@vnact/recruiter-shared-enum';
+import { EmploymentType } from 'src/constants/enum';
 import {
   IsBoolean,
   IsDateString,

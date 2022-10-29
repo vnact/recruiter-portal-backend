@@ -1,4 +1,4 @@
-import { UserRole } from '@vnact/recruiter-shared-enum';
+import { UserRole } from 'src/constants/enum';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class JwtClaimsDto {

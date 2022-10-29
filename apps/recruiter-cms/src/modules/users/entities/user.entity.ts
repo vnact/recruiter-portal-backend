@@ -1,5 +1,5 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { Gender, ExpLevel, UserRole } from '@vnact/recruiter-shared-enum';
+import { Gender, ExpLevel, UserRole } from 'src/constants/enum';
 import { AbstractEntity } from '@common/abstract.entity';
 import { EducationEntity } from '@modules/education/entities/education.entity';
 import { ExperienceEntity } from '@modules/experience/entities/experience.entity';

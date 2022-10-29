@@ -1,5 +1,5 @@
 import { UserEntity } from '@modules/users/entities/user.entity';
-import { ExpLevel, Gender, UserRole } from '@vnact/recruiter-shared-enum';
+import { ExpLevel, Gender, UserRole } from 'src/constants/enum';
 import * as moment from 'moment';
 import { In, MigrationInterface, QueryRunner } from 'typeorm';
 

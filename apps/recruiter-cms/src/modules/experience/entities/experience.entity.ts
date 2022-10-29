@@ -2,7 +2,7 @@ import { CareerEntity } from '@modules/careers/entities/career.entity';
 import { UserEntity } from '@modules/users/entities/user.entity';
 import { AbstractEntity } from '@common/abstract.entity';
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { EmploymentType } from '@vnact/recruiter-shared-enum';
+import { EmploymentType } from 'src/constants/enum';
 import { CompanyEntity } from '@modules/companies/entities/company.entity';
 
 @Entity('experience')

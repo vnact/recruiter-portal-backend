@@ -3,7 +3,7 @@ import {
   ExpLevel,
   UserRole,
   Workplace,
-} from '@vnact/recruiter-shared-enum';
+} from 'src/constants/enum';
 import { UtilService } from '@providers/utils.service';
 import { CareerEntity } from '@modules/careers/entities/career.entity';
 import { JobEntity } from '@modules/jobs/entities/job.entity';
@@ -33,7 +33,7 @@ export class SeedMoreJob1666888257617 implements MigrationInterface {
     const skills = await queryRunner.manager.find(SkillEntity);
     const employmentTypes = [
       EmploymentType.Apprenticeship,
-      EmploymentType.Constract,
+      EmploymentType.Contract,
       EmploymentType.Freelance,
       EmploymentType.FullTime,
       EmploymentType.Internship,
@@ -50,7 +50,7 @@ export class SeedMoreJob1666888257617 implements MigrationInterface {
       ExpLevel.FourPlus,
       ExpLevel.FivePlus,
     ];
-    const workplaces = [Workplace.Hybird, Workplace.OnSite, Workplace.Remote];
+    const workplaces = [Workplace.Hybrid, Workplace.OnSite, Workplace.Remote];
 
     const locations = [
       [21.13736, 105.65425, 20.791117, 106.049758, 'Ha Noi'],

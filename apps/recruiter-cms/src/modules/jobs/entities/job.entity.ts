@@ -8,7 +8,7 @@ import {
   ExpLevel,
   Gender,
   Workplace,
-} from '@vnact/recruiter-shared-enum';
+} from 'src/constants/enum';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { JobSkillEntity } from './job-skill.entity';
 
