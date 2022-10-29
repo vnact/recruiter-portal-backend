@@ -1,3 +1,4 @@
+import { GetAllJobQueryHandler } from './get-all-job.query';
 import { GetOneJobSkillQueryHandler } from './get-one-job-skill.query';
 import { GetOneJobQueryHandler } from './get-one-job.query';
 import { SearchJobQueryHandler } from './search-job.query';
@@ -8,4 +9,5 @@ export const JobQueryHandlers = [
   SuggestJobQueryHandler,
   GetOneJobQueryHandler,
   GetOneJobSkillQueryHandler,
+  GetAllJobQueryHandler,
 ];

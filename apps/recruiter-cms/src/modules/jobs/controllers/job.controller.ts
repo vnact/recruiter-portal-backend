@@ -1,3 +1,4 @@
+import { PaginationDto } from '@common/dto/pagination.dto';
 import { AuthUser } from '@decorators/auth-user.decorator';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { JwtClaimsDto } from '@modules/auth/dto/jwt-claims.dto';
@@ -11,6 +12,7 @@ import {
   Post,
   Query,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -20,6 +22,7 @@ import { UpdateJobCommand } from '../commands/update-job.command';
 import { CreateJobDto } from '../dto/create-job.dto';
 import { SearchJobDto } from '../dto/search-job.dto';
 import { UpdateJobDto } from '../dto/update-job.dto';
+import { GetAllJobQuery } from '../queries/get-all-job.query';
 import { GetOneJobQuery } from '../queries/get-one-job.query';
 import { SearchJobQuery } from '../queries/search-job.query';
 import { SuggestJobQuery } from '../queries/suggest-job.query';
@@ -39,8 +42,14 @@ export class JobController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('suggest')
-  async suggestJob(@AuthUser() user: JwtClaimsDto) {
-    const job = await this.queryBus.execute(new SuggestJobQuery(user.id));
+  async suggestJob(
+    @AuthUser() user: JwtClaimsDto,
+    @Query(new ValidationPipe({ transform: true }))
+    suggestJobDto: PaginationDto,
+  ) {
+    const job = await this.queryBus.execute(
+      new SuggestJobQuery(user.id, suggestJobDto),
+    );
     return job;
   }
 
@@ -72,5 +81,10 @@ export class JobController {
   @Delete(':id')
   async deleteJob(@AuthUser() user: JwtClaimsDto, @Param('id') id: number) {
     return this.commandBus.execute(new DeleteJobCommand(id, user.id));
+  }
+
+  @Get()
+  async getAllJob(@Query() dto: PaginationDto) {
+    return this.queryBus.execute(new GetAllJobQuery(dto));
   }
 }

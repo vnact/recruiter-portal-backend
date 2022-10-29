@@ -28,6 +28,9 @@ export class GetOneUserQueryHandler implements IQueryHandler<GetOneUserQuery> {
         appliedJobs: {
           job: true,
         },
+        skills: {
+          skill: true,
+        },
       },
     });
   }
