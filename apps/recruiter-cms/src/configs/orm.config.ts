@@ -17,6 +17,9 @@ export const ormConfig = registerAs('database', () => {
     migrations: ['dist/**/{migrations,seeds}/*.js'],
     migrationsRun: true,
     logging: process.env.DB_LOGGING == 'true',
-    ssl: process.env.DB_SSL == 'true',
+    ssl: {
+      require: process.env.DB_SSL == 'true',
+      rejectUnauthorized: false,
+    },
   } as TypeOrmModuleOptions;
 });
