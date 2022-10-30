@@ -20,6 +20,7 @@ export class CreateApplyCommandHandler
 {
   constructor(
     private readonly applyRepository: ApplyRepository,
+    private readonly jobRepository: JobRepository,
     private readonly queryBus: QueryBus,
   ) {}
 
@@ -30,20 +31,22 @@ export class CreateApplyCommandHandler
     );
     const job = await this.queryBus.execute(new GetOneJobQuery(jobID));
     const user = await this.queryBus.execute(new GetOneUserQuery(userId));
-    const countApply = await this.applyRepository.count({
-      where: { jobID },
-    });
+
+    await this.jobRepository.update(
+      {
+        id: jobID,
+      },
+      {
+        applies: () => `applies ${apply ? '-' : '+'} 1`,
+      },
+    );
 
     if (apply) {
       await this.applyRepository.remove(apply);
-      job.applies--;
       return apply;
     }
-    const newApply = this.applyRepository.create({ jobID, userId });
-    newApply.job = job;
-    newApply.user = user;
 
-    job.applies = countApply + 1;
+    const newApply = this.applyRepository.create({ job, user });
 
     return this.applyRepository.save(newApply);
   }
