@@ -23,6 +23,7 @@ import { CreateJobDto } from '../dto/create-job.dto';
 import { SearchJobDto } from '../dto/search-job.dto';
 import { UpdateJobDto } from '../dto/update-job.dto';
 import { GetAllJobQuery } from '../queries/get-all-job.query';
+import { GetAllJobByCompanyQuery } from '../queries/get-jobs-by-company.query';
 import { GetOneJobQuery } from '../queries/get-one-job.query';
 import { SearchJobQuery } from '../queries/search-job.query';
 import { SuggestJobQuery } from '../queries/suggest-job.query';
@@ -86,5 +87,13 @@ export class JobController {
   @Get()
   async getAllJob(@Query() dto: PaginationDto) {
     return this.queryBus.execute(new GetAllJobQuery(dto));
+  }
+
+  @Get('company/:id')
+  async getAllJobByCompany(
+    @Param('id') id: number,
+    @Query() dto: PaginationDto,
+  ) {
+    return this.queryBus.execute(new GetAllJobByCompanyQuery(id, dto));
   }
 }

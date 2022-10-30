@@ -2,6 +2,7 @@ import { AbstractEntity } from '@common/abstract.entity';
 import { ApplyEntity } from '@modules/apply/entities/apply.entity';
 import { CareerEntity } from '@modules/careers/entities/career.entity';
 import { CompanyEntity } from '@modules/companies/entities/company.entity';
+import { FavoriteJobEntity } from '@modules/favorite/entities/favorite-job.entity';
 import { UserEntity } from '@modules/users/entities/user.entity';
 import {
   EmploymentType,
@@ -73,6 +74,9 @@ export class JobEntity extends AbstractEntity {
 
   @OneToMany(() => ApplyEntity, (apply) => apply.job)
   apply: ApplyEntity[];
+
+  @OneToMany(() => FavoriteJobEntity, (favorite) => favorite.job)
+  favoriteJob: FavoriteJobEntity[];
 
   @Column({
     enum: EmploymentType,

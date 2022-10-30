@@ -1,11 +1,9 @@
 import { GetOneCareerQuery } from '@modules/careers/queries/get-one-career';
 import { GetOneCompanyQuery } from '@modules/companies/queries/get-one-company.query';
-import { CreateJobSkillCommand } from '@modules/jobs/commands/create-job-skill.command';
-import { GetOneSkillQuery } from '@modules/skills/queries/get-one-skill.query';
 import { GetOneUserQuery } from '@modules/users/queries/get-one-user.query';
 import { Command, CommandHandler } from '@nestjs-architects/typed-cqrs';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { CommandBus, ICommandHandler, QueryBus } from '@nestjs/cqrs';
+import { BadRequestException } from '@nestjs/common';
+import { ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { CreateExperienceDto } from '../dto/create-experience.dto';
 import { ExperienceEntity } from '../entities/experience.entity';
 import { ExperienceRepository } from '../repositories/experience.repository';
@@ -39,12 +37,6 @@ export class CreateExperienceHandler
     const career = await this.queryBus.execute(
       new GetOneCareerQuery(creteExperienceDto.career_id),
     );
-    const skill = await this.queryBus.execute(
-      new GetOneSkillQuery(creteExperienceDto.skill_id),
-    );
-    if (!skill) {
-      throw new NotFoundException('Skill not found');
-    }
 
     const experience = this.experienceRepository.create({
       startDate: creteExperienceDto.start_date,

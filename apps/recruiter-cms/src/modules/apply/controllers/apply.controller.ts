@@ -5,9 +5,7 @@ import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateApplyCommand } from '../commands/create-apply.command';
-import { DeleteApplyCommand } from '../commands/delete-apply.command';
 import { CreateApplyDto } from '../dto/create-apply.dto';
-import { DeleteApplyDto } from '../dto/delete-apply.dto';
 import { GetAllJobApplyByUserQuery } from '../queries/get-all-job-apply-by-user.query';
 
 @Controller('apply')
@@ -34,18 +32,6 @@ export class ApplyController {
   ) {
     return await this.commandBus.execute(
       new CreateApplyCommand(createApplyDto.jobID, user.id),
-    );
-  }
-
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Delete()
-  async deleteApply(
-    @Body() deleteApplyDto: DeleteApplyDto,
-    @AuthUser() user: JwtClaimsDto,
-  ) {
-    return await this.commandBus.execute(
-      new DeleteApplyCommand(user.id, deleteApplyDto.jobID),
     );
   }
 }
