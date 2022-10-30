@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.13.0 (2022-10-30)
+
+### Features
+
+- add ssl ([a77355e](https://github.com/vnact/recruiter-portal-backend/commit/a77355e2931c43570f7b4afdb50dd23630dbdaeb))
+
 # 1.12.0 (2022-10-30)
 
 ### Features
