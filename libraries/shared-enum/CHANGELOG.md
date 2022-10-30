@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.13.1 (2022-10-30)
+
+### Bug Fixes
+
+- orm config ([36f9a9b](https://github.com/vnact/recruiter-portal-backend/commit/36f9a9bc19fdf6182db9a9e4c4828d99f5299b22))
+
 # 1.13.0 (2022-10-30)
 
 ### Features
