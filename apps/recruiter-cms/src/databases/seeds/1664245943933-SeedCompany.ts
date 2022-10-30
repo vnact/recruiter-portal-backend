@@ -1,6 +1,6 @@
 import { CompanyEntity } from '@modules/companies/entities/company.entity';
 import { IndustryEntity } from '@modules/companies/entities/industry.entity';
-import { CompanySize } from '@vnact/recruiter-shared-enum';
+import { CompanySize } from 'src/constants/enum';
 import { In, MigrationInterface, QueryRunner } from 'typeorm';
 
 const companies: Array<

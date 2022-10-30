@@ -1,6 +1,6 @@
 import { AbstractEntity } from '@common/abstract.entity';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { CompanySize } from '@vnact/recruiter-shared-enum';
+import { CompanySize } from 'src/constants/enum';
 import { IndustryEntity } from './industry.entity';
 import { JobEntity } from '@modules/jobs/entities/job.entity';
 

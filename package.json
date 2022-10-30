@@ -26,7 +26,6 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "postinstall": "lerna bootstrap",
     "lint-staged": "lint-staged --config lint-staged.js",
     "format:check": "prettier --check \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",
     "format:write": "prettier --write \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",

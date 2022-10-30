@@ -4,7 +4,7 @@ import {
   ExpLevel,
   Gender,
   Workplace,
-} from '@vnact/recruiter-shared-enum';
+} from 'src/constants/enum';
 import {
   IsBoolean,
   IsDateString,

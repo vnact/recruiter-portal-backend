@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.13.1 (2022-10-30)
+
+### Bug Fixes
+
+- orm config ([36f9a9b](https://github.com/vnact/recruiter-portal-backend/commit/36f9a9bc19fdf6182db9a9e4c4828d99f5299b22))
+
+# 1.13.0 (2022-10-30)
+
+### Features
+
+- add ssl ([a77355e](https://github.com/vnact/recruiter-portal-backend/commit/a77355e2931c43570f7b4afdb50dd23630dbdaeb))
+
+# 1.12.0 (2022-10-30)
+
+### Features
+
+- add ssl ([46df57a](https://github.com/vnact/recruiter-portal-backend/commit/46df57a417f96af92ef5f4912e7806107fa2ccb2))
+
+## 1.11.1 (2022-10-29)
+
+**Note:** Version bump only for package @vnact/recruiter-shared-enum
+
+# 1.11.0 (2022-10-29)
+
+### Features
+
+- add pagination job ([#21](https://github.com/vnact/recruiter-portal-backend/issues/21)) ([7e0a806](https://github.com/vnact/recruiter-portal-backend/commit/7e0a8063146dac32f3dd43aa4296ef2fb69c790e))
+
 ## 1.10.2 (2022-10-28)
 
 ### Bug Fixes

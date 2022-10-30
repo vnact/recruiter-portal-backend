@@ -2,11 +2,7 @@ import { CareerEntity } from '@modules/careers/entities/career.entity';
 import { CompanyEntity } from '@modules/companies/entities/company.entity';
 import { JobEntity } from '@modules/jobs/entities/job.entity';
 import { UserEntity } from '@modules/users/entities/user.entity';
-import {
-  EmploymentType,
-  ExpLevel,
-  Workplace,
-} from '@vnact/recruiter-shared-enum';
+import { EmploymentType, ExpLevel, Workplace } from 'src/constants/enum';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 const jobs = [
@@ -157,7 +153,7 @@ const jobs = [
     employmentType: [EmploymentType.FullTime, EmploymentType.Internship],
     gpsLng: 105.781911,
     gpsLat: 21.045028,
-    workplaces: [Workplace.Remote, Workplace.Hybird],
+    workplaces: [Workplace.Remote, Workplace.Hybrid],
     recruits: 10,
     recruiterEmail: 'daclip26@gmail.com',
     careerName: 'Software Engineer',

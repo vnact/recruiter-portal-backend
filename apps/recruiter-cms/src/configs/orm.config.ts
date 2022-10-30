@@ -12,10 +12,17 @@ export const ormConfig = registerAs('database', () => {
     database: process.env.DB_DATABASE,
     namingStrategy: new SnakeNamingStrategy(),
     migrationsTableName: '__migrations',
-    entities: ['dist/**/*.entity.js'],
+    entities: ['**/*.entity.js'],
     subscribers: [''],
-    migrations: ['dist/**/{migrations,seeds}/*.js'],
+    migrations: ['**/{migrations,seeds}/*.js'],
     migrationsRun: true,
     logging: process.env.DB_LOGGING == 'true',
+    ssl:
+      process.env.DB_SSL == 'true'
+        ? {
+            require: true,
+            rejectUnauthorized: false,
+          }
+        : false,
   } as TypeOrmModuleOptions;
 });
