@@ -1,3 +1,4 @@
+import { JobRepository } from '@modules/jobs/repositories/job.repository';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmExModule } from '@shared/typeorm-ex.module';
@@ -7,7 +8,10 @@ import { ApplyQueryHandlers } from './queries';
 import { ApplyRepository } from './repositories/apply.repository';
 
 @Module({
-  imports: [TypeOrmExModule.forCustomRepository([ApplyRepository]), CqrsModule],
+  imports: [
+    TypeOrmExModule.forCustomRepository([ApplyRepository, JobRepository]),
+    CqrsModule,
+  ],
   controllers: [ApplyController],
   providers: [...ApplyQueryHandlers, ...ApplyCommandHandlers],
 })

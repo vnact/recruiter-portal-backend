@@ -24,6 +24,7 @@ export class GetOneApplyQueryHandler
     const job = await this.queryBus.execute(new GetOneJobQuery(jobId));
     return await this.applyRepository.findOne({
       where: { userId, jobID: job.id },
+      relations: ['job', 'user'],
     });
   }
 }

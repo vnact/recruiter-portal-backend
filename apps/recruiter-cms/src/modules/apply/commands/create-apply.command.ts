@@ -1,9 +1,12 @@
-import { GetOneJobQuery } from '@modules/jobs/queries/get-one-job.query';
-import { GetOneUserQuery } from '@modules/users/queries/get-one-user.query';
+import { GetOneApplyQuery } from '../queries/get-one-apply.query';
 import { Command } from '@nestjs-architects/typed-cqrs';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
 import { ApplyEntity } from '../entities/apply.entity';
 import { ApplyRepository } from '../repositories/apply.repository';
+import { BadRequestException } from '@nestjs/common';
+import { GetOneJobQuery } from '@modules/jobs/queries/get-one-job.query';
+import { GetOneUserQuery } from '@modules/users/queries/get-one-user.query';
+import { JobRepository } from '@modules/jobs/repositories/job.repository';
 
 export class CreateApplyCommand extends Command<ApplyEntity> {
   constructor(public readonly jobID: number, public readonly userId: number) {
@@ -22,12 +25,26 @@ export class CreateApplyCommandHandler
 
   async execute(command: CreateApplyCommand) {
     const { jobID, userId } = command;
+    const apply = await this.queryBus.execute(
+      new GetOneApplyQuery(userId, jobID),
+    );
     const job = await this.queryBus.execute(new GetOneJobQuery(jobID));
     const user = await this.queryBus.execute(new GetOneUserQuery(userId));
-    const newApply = this.applyRepository.create({ jobID, userId });
+    const countApply = await this.applyRepository.count({
+      where: { jobID },
+    });
 
+    if (apply) {
+      await this.applyRepository.remove(apply);
+      job.applies--;
+      return apply;
+    }
+    const newApply = this.applyRepository.create({ jobID, userId });
     newApply.job = job;
     newApply.user = user;
-    return await this.applyRepository.save(newApply);
+
+    job.applies = countApply + 1;
+
+    return this.applyRepository.save(newApply);
   }
 }
