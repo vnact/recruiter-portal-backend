@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.16.0 (2022-10-31)
+
+### Features
+
+- add healthcheck ([5d01dc6](https://github.com/vnact/recruiter-portal-backend/commit/5d01dc6c839f2338946acf4d0c05bbb570d57fd4))
+
 ## 1.15.2 (2022-10-30)
 
 ### Bug Fixes
