@@ -18,6 +18,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { CronModule } from '@modules/cron/cron.module';
 import { ElasticSearchModule } from '@modules/elasticsearch/elasticsearch.module';
 import { IndustriesModule } from './modules/industries/industries.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -47,5 +48,6 @@ import { IndustriesModule } from './modules/industries/industries.module';
     ElasticSearchModule,
     IndustriesModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}

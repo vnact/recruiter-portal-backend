@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dev-ingress-auth
+  namespace: dev
+  annotations:
+    ingressClassName: nginx
+    cert-manager.io/cluster-issuer: 'letsencrypt-cluster-issuer'
+  labels:
+    app: recruiter-cms
+spec:
+  # tls:
+  #   - hosts:
+  #       - recruiter.kma-news.tech
+  # secretName: dev-ingress-auth-tls
+  defaultBackend:
+    service:
+      name: recruiter-cms
+      port:
+        number: 3000
+  rules:
+    - host: recruiter.kma-news.tech
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: recruiter-cms
+                port:
+                  number: 3000
