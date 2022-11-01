@@ -1,6 +1,7 @@
 import { PaginationDto } from '@common/dto/pagination.dto';
-import { Query } from '@nestjs-architects/typed-cqrs';
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { Query, IQueryHandler } from '@nestjs-architects/typed-cqrs';
+import { QueryHandler } from '@nestjs/cqrs';
+/* eslint-disable prettier/prettier */
 import { CompanyEntity } from '../entities/company.entity';
 import { CompanyRepository } from '../repositories/company.repository';
 

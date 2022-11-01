@@ -3,6 +3,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmExModule } from '@shared/typeorm-ex.module';
 import { CompanyQueryHandles } from './queries';
 import { CompanyRepository } from './repositories/company.repository';
+import { CompanyController } from './controllers/company.controller';
 
 @Module({
   providers: [...CompanyQueryHandles],
@@ -10,6 +11,6 @@ import { CompanyRepository } from './repositories/company.repository';
     TypeOrmExModule.forCustomRepository([CompanyRepository]),
     CqrsModule,
   ],
-  controllers: [],
+  controllers: [CompanyController],
 })
 export class CompanyModule {}

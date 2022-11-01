@@ -17,11 +17,15 @@ export class GetOneExperienceQueryHandler
   constructor(private readonly experienceRepository: ExperienceRepository) {}
   async execute(query: GetOneExperienceQuery): Promise<ExperienceEntity> {
     const { id } = query;
-    const experience = await this.experienceRepository
-      .createQueryBuilder('experience')
-      .where('experience.id = :id', { id })
-      .innerJoinAndSelect('experience.user', 'user')
-      .getOne();
+    const experience = await this.experienceRepository.findOne({
+      where: { id },
+      relations: {
+        career: true,
+        company: true,
+        user: true,
+      },
+    });
+
     if (!experience) {
       throw new NotFoundException('Experience not found');
     }
