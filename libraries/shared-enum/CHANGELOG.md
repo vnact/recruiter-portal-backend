@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.14.1 (2022-11-01)
+
+### Bug Fixes
+
+- pagination-company ([069e2d9](https://github.com/vnact/recruiter-portal-backend/commit/069e2d959bb4a7ffb31097019fa67c7c4dbba6ad))
+
 # 1.14.0 (2022-10-31)
 
 ### Features
