@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.17.0 (2022-11-01)
+
+### Features
+
+- add gke workflow ([9a1a33c](https://github.com/vnact/recruiter-portal-backend/commit/9a1a33cca1a9c3d9a61e2bfd8aff0c6457bad998))
+
 ## 1.16.1 (2022-11-01)
 
 ### Bug Fixes
