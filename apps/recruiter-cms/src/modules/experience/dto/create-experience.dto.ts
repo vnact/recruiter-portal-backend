@@ -1,5 +1,5 @@
+import { EmploymentType } from '@constants/enum';
 import { ApiProperty } from '@nestjs/swagger';
-import { EmploymentType } from '@vnact/recruiter-shared-enum';
 import { IsDateString, IsEnum, IsNumber, IsString } from 'class-validator';
 
 export class CreateExperienceDto {

@@ -19,9 +19,7 @@ export class GetOneUserQueryHandler implements IQueryHandler<GetOneUserQuery> {
       },
       relations: {
         educations: true,
-        skills: {
-          skill: true,
-        },
+
         experiences: {
           company: true,
           career: true,
