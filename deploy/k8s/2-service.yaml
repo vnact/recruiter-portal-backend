@@ -1,46 +1,47 @@
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: dev
-  name: recruiter-cms
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
   labels:
     app: recruiter-cms
+  name: recruiter-cms
+  namespace: dev
 spec:
+  ports:
+    - name: recruiter-cms
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
   selector:
     app: recruiter-cms
-  ports:
-    - port: 3000
-      name: recruiter-cms
+  type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: dev
-  name: recruiter-cms
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
   labels:
     app: recruiter-cms
+  name: recruiter-cms
+  namespace: dev
 spec:
-  replicas: 1
   progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: recruiter-cms
-  revisionHistoryLimit: 3
   strategy:
-    type: RollingUpdate
+    type: Recreate # Should be RollingUpdate
   template:
     metadata:
       labels:
         app: recruiter-cms
     spec:
       containers:
-        - name: recruiter-cms
-          image: notekunn/recruiter-cms:1.15.0 # {"$imagepolicy": "flux-system:recruiter-cms"}
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 3000
-              name: recruiter-cms
-          env:
+        - env:
             - name: SERVICE_HOST
               value: '0.0.0.0'
             - name: SERVICE_PORT
@@ -48,29 +49,58 @@ spec:
             - name: GOOGLEMAP_API_KEY
               value: 'AIzaSyDm_uG7jcclLM5QXjScNF8mkYrIhe3IEzw'
             - name: JWT_SECRET_KEY
-              value: 'cuongdeptrai'
+              value: cuongdeptrai
             - name: JWT_EXPIRATION_TIME
-              value: '7d'
+              value: 7d
             - name: DB_HOST
-              value: 'db-postgresql-nyc1-59855-do-user-6507062-0.b.db.ondigitalocean.com'
+              value: db-postgresql-nyc1-59855-do-user-6507062-0.b.db.ondigitalocean.com
             - name: DB_PORT
               value: '25060'
             - name: DB_USERNAME
-              value: 'doadmin'
+              value: doadmin
             - name: DB_PASSWORD
-              value: 'AVNS_vAlPbwQWY4lohBYDjpU'
+              value: AVNS_vAlPbwQWY4lohBYDjpU
             - name: DB_DATABASE
-              value: 'defaultdb'
+              value: defaultdb
             - name: DB_SSL
               value: 'true'
             - name: UID_SERVICE_HOST
-              value: 'https://cvnl.me/uuid/v1'
+              value: https://cvnl.me/uuid/v1
             - name: ELASTICSEARCH_URL
-              value: 'https://elastic.kma-news.tech/'
+              value: https://elastic.kma-news.tech/
+          image: ${IMAGE_TAG}
+          imagePullPolicy: IfNotPresent
+          name: recruiter-cms
+          ports:
+            - containerPort: 3000
+              name: recruiter-cms
+              protocol: TCP
           resources:
-            requests:
-              memory: '896Mi'
-              cpu: '700m'
             limits:
-              memory: '1Gi'
-              cpu: '800m'
+              cpu: 800m
+              memory: 1Gi
+            requests:
+              cpu: 400m
+              memory: 500Mi
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+              httpHeaders:
+                - name: Accept
+                  value: application/json
+            initialDelaySeconds: 50
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 10
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+              httpHeaders:
+                - name: Accept
+                  value: application/json
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 10
