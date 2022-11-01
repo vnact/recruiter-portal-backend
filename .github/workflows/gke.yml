@@ -1,0 +1,56 @@
+name: 🎉
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
+  GKE_ZONE: ${{ secrets.GKE_ZONE }}
+  IMAGE_NAME: 'recruiter-cms'
+
+jobs:
+  build:
+    name: Deploy 🚀
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@notekunn'
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.PAT }}
+      - id: auth
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GKE_SA_KEY }}
+      - uses: google-github-actions/setup-gcloud@v0
+      - name: 'Use gcloud CLI'
+        run: 'gcloud auth list'
+      # - run: |-
+      #     gcloud --quiet auth configure-docker
+      #   name: Setup docker
+      # - uses: google-github-actions/get-gke-credentials@v0
+      #   with:
+      #     cluster_name: ${{ env.GKE_CLUSTER }}
+      #     location: ${{ env.GKE_ZONE }}
+      #     credentials: ${{ secrets.GKE_SA_KEY }}
+      # - name: Login to GCR
+      #   uses: docker/login-action@v2
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # - name: Build and push
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     push: true
+      #     tags: notekunn/${{ needs.check.outputs.package }}:${{ needs.check.outputs.version }}
+      #     secrets: |
+      #       "token=${{ secrets.PAT }}"
+      #     secret-files: |
+      #       "npmrc=${{ env.NPM_CONFIG_USERCONFIG }}"
