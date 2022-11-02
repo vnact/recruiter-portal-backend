@@ -19,6 +19,7 @@ export class ElasticsearchSearchQueryHandler
   constructor(private readonly elasticsearchService: ElasticsearchService) {}
   async execute(query: ElasticsearchSearchQuery): Promise<any> {
     const { index, body } = query;
+    // console.log(JSON.stringify(body, null, '\t'));
     const {
       body: {
         hits: { hits },
