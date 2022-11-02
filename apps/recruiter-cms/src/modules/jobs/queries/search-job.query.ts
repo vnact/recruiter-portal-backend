@@ -32,7 +32,9 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
         .boolQuery()
         .should([
           esb.boolQuery().mustNot(esb.existsQuery().field('level')),
-          esb.termsQuery().field('level.keyword').values(levels),
+          levels.length > 1
+            ? esb.termsQuery().field('level.keyword').values(levels)
+            : esb.matchQuery('level.keyword', levels[0]),
         ]);
       mustFilterQuery.push(levelQuery);
     }
@@ -52,7 +54,9 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
         .boolQuery()
         .should([
           esb.boolQuery().mustNot(esb.existsQuery().field('employmentType')),
-          esb.termsQuery().field('employmentType.keyword').values(levels),
+          jobTypes.length > 1
+            ? esb.termsQuery().field('employmentType.keyword').values(jobTypes)
+            : esb.matchQuery('employmentType.keyword', jobTypes[0]),
         ]);
       mustFilterQuery.push(jobTypeQuery);
     }

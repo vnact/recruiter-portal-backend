@@ -39,6 +39,7 @@ export class SearchJobDto extends PaginationDto {
   @IsEnum(ExpLevel, {
     each: true,
   })
+  @Transform(({ value }) => (typeof value === 'string' ? [value] : value))
   @IsOptional()
   levels?: ExpLevel[];
 
@@ -51,6 +52,7 @@ export class SearchJobDto extends PaginationDto {
   @IsEnum(EmploymentType, {
     each: true,
   })
+  @Transform(({ value }) => (typeof value === 'string' ? [value] : value))
   @IsOptional()
   jobTypes?: EmploymentType[];
 }
