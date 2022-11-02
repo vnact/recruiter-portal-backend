@@ -1,3 +1,11 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: managed-cert
+spec:
+  domains:
+    - recruiter.kma-news.tech
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -5,7 +13,9 @@ metadata:
   namespace: dev
   annotations:
     ingressClassName: nginx
-    cert-manager.io/cluster-issuer: 'letsencrypt-cluster-issuer'
+    kubernetes.io/ingress.global-static-ip-name: nginx-ip
+    networking.gke.io/managed-certificates: managed-cert
+    kubernetes.io/ingress.class: 'gce'
   labels:
     app: recruiter-cms
 spec:
