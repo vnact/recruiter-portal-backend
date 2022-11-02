@@ -43,10 +43,10 @@ export class CreateExperienceHandler
       endDate: creteExperienceDto.end_date,
       title: creteExperienceDto.title,
       description: creteExperienceDto.description,
-      employmentType: creteExperienceDto.employment_type,
       company: company,
       career: career,
       user: user,
+      employmentType: creteExperienceDto.employment_type,
     });
 
     return this.experienceRepository.save(experience);

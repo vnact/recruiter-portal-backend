@@ -3,6 +3,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmExModule } from '@shared/typeorm-ex.module';
 import { UserCommandHandlers } from './commands';
 import { UserSkillController } from './controllers/user-skill.controller';
+import { UserController } from './controllers/user.controller';
 import { UserQueryHandlers } from './queries';
 import { UserSkillRepository } from './repositories/user-skill.repository';
 import { UserRepository } from './repositories/user.repository';
@@ -13,6 +14,6 @@ import { UserRepository } from './repositories/user.repository';
     TypeOrmExModule.forCustomRepository([UserRepository, UserSkillRepository]),
     CqrsModule,
   ],
-  controllers: [UserSkillController],
+  controllers: [UserSkillController, UserController],
 })
 export class UserModule {}
