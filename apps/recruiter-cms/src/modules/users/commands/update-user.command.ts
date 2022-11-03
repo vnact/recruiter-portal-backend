@@ -10,7 +10,6 @@ import { UserRepository } from '../repositories/user.repository';
 import { ForbiddenException } from '@nestjs/common';
 import { GetOneUserQuery } from '../queries/get-one-user.query';
 import { GetAllCareerByIdQuery } from '@modules/careers/queries/get-all-career-by-id.query';
-import * as merge from 'lodash/fp/merge';
 export class UpdateUserCommand extends Command<UserEntity> {
   constructor(
     public readonly userId: number,
@@ -49,18 +48,22 @@ export class UpdateUserCommandHandler
         skills: true,
       },
     });
-    console.log(JSON.stringify(user, null, '\t'));
+    // console.log(JSON.stringify(user, null, '\t'));
     const { careersId, ...otherFields } = dto;
     const careers = await this.queryBus.execute(
       new GetAllCareerByIdQuery(careersId),
     );
+    console.log('đây là careers:   ', careers[0]);
     // console.log('all career', JSON.stringify(careers, null, '\t'));
     // console.log('12313');
     // console.log(
     //   JSON.stringify({ ...user, ...otherFields, careers }, null, '\t'),
     // );
-    const dataToUpdate = merge(user, otherFields, careers);
 
-    return this.userRepository.save(dataToUpdate);
+    return this.userRepository.save({
+      ...user,
+      ...otherFields,
+      careers,
+    });
   }
 }
