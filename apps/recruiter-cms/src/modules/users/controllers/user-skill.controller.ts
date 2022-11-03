@@ -15,7 +15,6 @@ import { CreateUserSkillCommand } from '../commands/create-user-skill.command';
 import { DeleteUserSkillCommand } from '../commands/delete-user-skill.command';
 import { CreateUserSkillDto } from '../dto/create-user-skill.dto';
 import { DeleteUserSkillDto } from '../dto/delete-user-skill.dto';
-import { UpdateUserSkillDto } from '../dto/update-user-skill';
 
 @ApiTags('user-skill')
 @Controller('user-skill')

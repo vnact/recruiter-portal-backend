@@ -13,11 +13,7 @@ export class UpdateUserDto {
   @ApiProperty()
   @IsDateString()
   @IsOptional()
-  birth?: string;
-
-  @ApiProperty()
-  @IsNumber()
-  id: number;
+  birthDay?: string;
 
   @ApiProperty()
   @IsNumber()
@@ -77,9 +73,10 @@ export class UpdateUserDto {
   description?: string;
 
   @ApiProperty({
+    isArray: true,
     enum: EmploymentType,
   })
-  @IsEnum(EmploymentType)
+  @IsEnum(EmploymentType, { each: true })
   employmentType: EmploymentType[];
 
   @ApiProperty({

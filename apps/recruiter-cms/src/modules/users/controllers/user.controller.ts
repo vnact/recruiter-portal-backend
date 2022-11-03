@@ -13,12 +13,8 @@ export class UserController {
   constructor(private command: CommandBus) {}
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Patch(':id')
-  update(
-    @Param('id') id: number,
-    @AuthUser() user: JwtClaimsDto,
-    @Body() dto: UpdateUserDto,
-  ) {
-    return this.command.execute(new UpdateUserCommand(id, user.id, dto));
+  @Patch('profile')
+  update(@AuthUser() user: JwtClaimsDto, @Body() dto: UpdateUserDto) {
+    return this.command.execute(new UpdateUserCommand(user.id, dto));
   }
 }
