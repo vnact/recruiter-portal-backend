@@ -1,7 +1,6 @@
 import { PaginationDto } from '@common/dto/pagination.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ExpLevel, EmploymentType } from 'src/constants/enum';
-import { Transform } from 'class-transformer';
 import {
   IsEnum,
   IsLatitude,
@@ -14,21 +13,21 @@ import {
 
 export class SearchJobDto extends PaginationDto {
   @ApiProperty()
-  @Transform(({ value }) => parseFloat(value))
   @IsLatitude()
-  lat: number;
+  @IsOptional()
+  lat?: number;
 
   @ApiProperty()
-  @Transform(({ value }) => parseFloat(value))
   @IsLongitude()
-  lng: number;
+  @IsOptional()
+  lng?: number;
 
   @ApiProperty()
-  @Transform(({ value }) => parseInt(value))
   @IsNumber()
   @Min(0)
   @Max(50000, { message: 'range 0-50km' })
-  rangeMeter: number;
+  @IsOptional()
+  rangeMeter?: number;
 
   @ApiProperty({
     default: [],
@@ -39,7 +38,6 @@ export class SearchJobDto extends PaginationDto {
   @IsEnum(ExpLevel, {
     each: true,
   })
-  @Transform(({ value }) => (typeof value === 'string' ? [value] : value))
   @IsOptional()
   levels?: ExpLevel[];
 
@@ -52,12 +50,25 @@ export class SearchJobDto extends PaginationDto {
   @IsEnum(EmploymentType, {
     each: true,
   })
-  @Transform(({ value }) => (typeof value === 'string' ? [value] : value))
   @IsOptional()
   jobTypes?: EmploymentType[];
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    type: [Number],
+  })
+  @IsNumber({}, { each: true })
+  @IsOptional()
+  careers?: number[];
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  startSalary?: number;
+
+  @ApiProperty()
   @IsNumber()
   @IsOptional()
-  careerId?: number;
+  @Min(0)
+  endSalary?: number;
 }
