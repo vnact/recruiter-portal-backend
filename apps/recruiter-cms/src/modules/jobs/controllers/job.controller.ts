@@ -46,8 +46,7 @@ export class JobController {
   @Get('suggest')
   async suggestJob(
     @AuthUser() user: JwtClaimsDto,
-    @Query(new ValidationPipe({ transform: true }))
-    suggestJobDto: PaginationDto,
+    @Query() suggestJobDto: PaginationDto,
   ) {
     const job = await this.queryBus.execute(
       new SuggestJobQuery(user.id, suggestJobDto),

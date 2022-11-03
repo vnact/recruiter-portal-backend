@@ -50,6 +50,11 @@ export class UserEntity extends AbstractEntity {
   @Column({
     nullable: true,
   })
+  avatar?: string;
+
+  @Column({
+    nullable: true,
+  })
   phoneNumber?: string;
 
   @Column({

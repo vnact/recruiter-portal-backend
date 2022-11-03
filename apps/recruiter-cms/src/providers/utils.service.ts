@@ -23,7 +23,7 @@ export class UtilService {
     return bcrypt.compare(password, hash || '');
   }
 
-  static nomalizeSortType(sortType?: string): 'ASC' | 'DESC' {
+  static normalizeSortType(sortType?: string): 'ASC' | 'DESC' {
     if (sortType && ['ASC', 'DESC', 'asc', 'desc'].includes(sortType)) {
       return sortType.toUpperCase() as 'ASC' | 'DESC';
     }

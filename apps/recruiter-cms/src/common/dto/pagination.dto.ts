@@ -26,7 +26,7 @@ export class PaginationDto extends BasePageOptionsDto {
         if (field) {
           sortEntries.push([
             field as keyof T,
-            UtilService.nomalizeSortType(sortType),
+            UtilService.normalizeSortType(sortType),
           ]);
         }
       }

@@ -22,6 +22,11 @@ export class CreateUserDto {
   })
   name?: string;
 
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  avatar?: string;
+
   @IsEnum(Gender)
   @IsOptional()
   @ApiProperty({
