@@ -55,16 +55,16 @@ export class SeedMoreJob1666888257617 implements MigrationInterface {
     const locations = [
       [21.13736, 105.65425, 20.791117, 106.049758, 'Ha Noi'],
       [16.176981, 107.873424, 15.967162, 108.141216, 'Da Nang'],
-      [10.897931, 106.535839, 10.736065, 106.701321, 'TP Ho Chi Minh'],
+      [10.897931, 106.535839, 10.736065, 106.701321, 'TP. Ho Chi Minh'],
     ] as [number, number, number, number, string][];
 
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 250; i++) {
       const minSalary = UtilService.getRandom(0, 2000);
       const maxSalary = UtilService.getRandom(minSalary, 3000);
       const career = UtilService.pickOne(careers);
       const [maxLat, minLng, minLat, maxLng, location] =
         UtilService.pickOne(locations);
-      const title = `${location} - ${career.name} (${minSalary}$ - ${maxSalary}$)`;
+      const title = `${location} - ${career.name} ($${minSalary} - $${maxSalary})`;
       const jobData: DeepPartial<JobEntity> = {
         applies: 0,
         apply: [],
@@ -80,7 +80,7 @@ export class SeedMoreJob1666888257617 implements MigrationInterface {
         level: UtilService.pickOne(levels),
         recruiter: UtilService.pickOne(recruiters),
         title,
-        description: faker.lorem.paragraphs(UtilService.getRandom(3, 5)),
+        description: faker.lorem.paragraphs(UtilService.getRandom(3, 10)),
         startDate: new Date(),
         location,
         minSalary,

@@ -28,13 +28,13 @@ metadata:
   namespace: dev
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: recruiter-cms
   strategy:
-    type: Recreate # Should be RollingUpdate
+    type: RollingUpdate # Should be RollingUpdate
   template:
     metadata:
       labels:
