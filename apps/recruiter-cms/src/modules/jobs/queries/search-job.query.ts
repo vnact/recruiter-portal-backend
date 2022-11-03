@@ -22,21 +22,25 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
         jobTypes,
         rangeMeter,
         q,
-        careerId,
-        page,
+        careers,
         skip,
         take,
+        startSalary,
+        endSalary,
       },
     } = query;
 
-    const geoDistanceQuery = esb
-      .geoDistanceQuery()
-      .field('pin.location')
-      .distance(`${rangeMeter}m`)
-      .geoPoint(esb.geoPoint().lat(lat).lon(lng));
+    const boolFilterQuery: esb.Query[] = [];
+    const mustQuery = [];
 
-    const boolFilterQuery = [geoDistanceQuery];
-    const mustFilterQuery = [];
+    if (lat && lng && rangeMeter) {
+      const geoDistanceQuery = esb
+        .geoDistanceQuery()
+        .field('pin.location')
+        .distance(`${rangeMeter}m`)
+        .geoPoint(esb.geoPoint().lat(lat).lon(lng));
+      boolFilterQuery.push(geoDistanceQuery);
+    }
 
     if (levels && levels.length > 0) {
       const levelQuery = esb
@@ -47,11 +51,11 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
             ? esb.termsQuery().field('level.keyword').values(levels)
             : esb.matchQuery('level.keyword', levels[0]),
         ]);
-      mustFilterQuery.push(levelQuery);
+      mustQuery.push(levelQuery);
     }
 
     if (q) {
-      mustFilterQuery.push(
+      mustQuery.push(
         esb
           .multiMatchQuery()
           .fields(['title', 'company.name', 'description'])
@@ -69,22 +73,34 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
             ? esb.termsQuery().field('employmentType.keyword').values(jobTypes)
             : esb.matchQuery('employmentType.keyword', jobTypes[0]),
         ]);
-      mustFilterQuery.push(jobTypeQuery);
+      mustQuery.push(jobTypeQuery);
     }
 
-    if (careerId) {
-      const careerQuery = esb.matchQuery('career.id', '' + careerId);
-      mustFilterQuery.push(careerQuery);
+    if (careers?.length > 0) {
+      const careerQuery =
+        careers.length > 1
+          ? esb.termsQuery().field('career.id').values(careers)
+          : esb.matchQuery('career.id', '' + careers[0]);
+      mustQuery.push(careerQuery);
     }
 
-    const boolQuery = esb
-      .boolQuery()
-      .filter(boolFilterQuery)
-      .must(mustFilterQuery);
+    if (startSalary) {
+      const salaryQuery = esb.rangeQuery('minSalary').gte(startSalary);
+      boolFilterQuery.push(salaryQuery);
+    }
+
+    if (endSalary) {
+      const salaryQuery = esb.rangeQuery('maxSalary').lte(endSalary);
+      boolFilterQuery.push(salaryQuery);
+    }
+
+    const boolQuery = esb.boolQuery().filter(boolFilterQuery).must(mustQuery);
     const body = esb
       .requestBodySearch()
       .query(boolQuery)
-      .sort(esb.sort('_score', 'DESC'));
+      .sort(esb.sort('id', 'DESC'))
+      .size(take)
+      .from(skip);
 
     const result = await this.queryBus.execute(
       new ElasticsearchSearchQuery('jobs', body),

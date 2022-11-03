@@ -35,8 +35,9 @@ export class JobController {
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
   ) {}
-  @Get('search')
-  searchJob(@Query() dto: SearchJobDto) {
+
+  @Post('search')
+  searchJob(@Body() dto: SearchJobDto) {
     return this.queryBus.execute(new SearchJobQuery(dto));
   }
 
