@@ -53,6 +53,7 @@ export class CompanyEntity extends AbstractEntity {
 
   @ManyToOne(() => IndustryEntity, {
     nullable: true,
+    eager: true,
   })
   industry?: IndustryEntity;
 
