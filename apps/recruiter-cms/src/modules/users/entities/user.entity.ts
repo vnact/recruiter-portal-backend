@@ -48,6 +48,11 @@ export class UserEntity extends AbstractEntity {
   gender?: Gender;
 
   @Column({
+    nullable: true,
+  })
+  phoneNumber?: string;
+
+  @Column({
     type: 'date',
     nullable: true,
   })

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class CreateUserSkillDto {
   @IsArray()
@@ -9,8 +9,14 @@ export class CreateUserSkillDto {
   skills_id: number[];
 
   @IsString()
+  @IsOptional()
   @ApiProperty({
     example: '900/990',
   })
   certificate?: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({})
+  description?: string;
 }

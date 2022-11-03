@@ -28,7 +28,7 @@ export class CreateUserSkillHandler
       })
       .getMany();
     if (checkSkill.length) {
-      throw new HttpException('Skill already exists', HttpStatus.BAD_REQUEST);
+      throw new BadRequestException('Skill already exists');
     }
     return Promise.all(
       dto.skills_id.map(async (skillId) => {
@@ -36,6 +36,7 @@ export class CreateUserSkillHandler
           userId: userId,
           skillId,
           certificate: dto.certificate,
+          description: dto.description,
         });
         await this.userSkillRepository.save(user_skill);
       }),

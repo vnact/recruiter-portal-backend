@@ -1,20 +1,9 @@
 import { EmploymentType, ExpLevel, Gender } from '@constants/enum';
-import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsArray,
-  IsDateString,
-  IsEnum,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import { CreateUserDto } from './create-user.dto';
 
-export class UpdateUserDto {
-  @ApiProperty()
-  @IsDateString()
-  @IsOptional()
-  birthDay?: string;
-
+export class UpdateUserDto extends PartialType(CreateUserDto) {
   @ApiProperty()
   @IsNumber()
   @IsOptional()
@@ -30,6 +19,11 @@ export class UpdateUserDto {
   })
   @IsEnum(Gender)
   gender: Gender;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  phoneNumber?: string;
 
   @ApiProperty({
     enum: ExpLevel,

@@ -19,5 +19,10 @@ export class UserSkillEntity {
   @Column('text', {
     nullable: true,
   })
-  certificate: string;
+  certificate?: string;
+
+  @Column('text', {
+    nullable: true,
+  })
+  description?: string;
 }
