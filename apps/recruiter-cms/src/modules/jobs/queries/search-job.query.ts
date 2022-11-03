@@ -28,6 +28,7 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
         startSalary,
         endSalary,
       },
+      dto,
     } = query;
 
     const boolFilterQuery: esb.Query[] = [];
@@ -98,7 +99,7 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
     const body = esb
       .requestBodySearch()
       .query(boolQuery)
-      .sort(esb.sort('id', 'DESC'))
+      .sorts(dto.toSortEntries().map((_sort) => esb.sort(..._sort)))
       .size(take)
       .from(skip);
 

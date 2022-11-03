@@ -33,6 +33,7 @@ export class GetOneUserQueryHandler implements IQueryHandler<GetOneUserQuery> {
         skills: {
           skill: true,
         },
+        careers: true,
       },
     });
   }
