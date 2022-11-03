@@ -16,7 +16,8 @@ const companies: Array<
     email: 'google@actvn.edu.vn',
     taxNumber: '0127509424',
     provinceId: 1,
-    size: CompanySize.TenThoudsandPlus,
+    size: CompanySize.TenThousandPlus,
+    avatar: 'https://i.imgur.com/sSgVXSc.png',
   },
   {
     name: 'Amazon',
@@ -28,7 +29,8 @@ const companies: Array<
     email: 'amazon@actvn.edu.vn',
     taxNumber: '0128509424',
     provinceId: 1,
-    size: CompanySize.OneThoudsandPlus,
+    size: CompanySize.OneThousandPlus,
+    avatar: 'https://i.imgur.com/QMQhCYR.png',
   },
   {
     name: 'FLC Group',
@@ -41,6 +43,7 @@ const companies: Array<
     taxNumber: '0128509224',
     provinceId: 1,
     size: CompanySize.TwentyFivePlus,
+    avatar: 'https://i.imgur.com/rvyzE3M.png',
   },
   {
     name: 'Tiki',
@@ -53,6 +56,7 @@ const companies: Array<
     taxNumber: '0128509321',
     provinceId: 1,
     size: CompanySize.FiveHundredPlus,
+    avatar: 'https://i.imgur.com/C31GNX6.png',
   },
 ];
 
