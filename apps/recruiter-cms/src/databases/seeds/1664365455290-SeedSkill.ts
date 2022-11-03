@@ -12,6 +12,8 @@ const skills: string[] = [
   'Python',
   'Talent Management',
   'English',
+  'AngularJS',
+  'NoSQL',
 ];
 
 export class SeedSkill1664365455290 implements MigrationInterface {

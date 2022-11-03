@@ -61,7 +61,7 @@ spec:
             - name: DB_PASSWORD
               value: AVNS_vAlPbwQWY4lohBYDjpU
             - name: DB_DATABASE
-              value: defaultdb
+              value: topcv
             - name: DB_SSL
               value: 'true'
             - name: UID_SERVICE_HOST

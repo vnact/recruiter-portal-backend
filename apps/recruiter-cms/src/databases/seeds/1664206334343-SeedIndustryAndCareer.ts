@@ -5,7 +5,7 @@ import { CareerEntity } from '@modules/careers/entities/career.entity';
 
 export interface CareerList {
   name: string;
-  subItems: CareerList[];
+  subItems?: CareerList[];
 }
 
 export interface IndustryList {
@@ -51,6 +51,23 @@ const industries: IndustryList[] = [
           },
         ],
       },
+      {
+        name: 'Lead Program Coordinator',
+        subItems: [],
+      },
+      {
+        name: 'Principal Research Developer',
+        subItems: [],
+      },
+    ],
+  },
+  {
+    name: 'Data',
+    careers: [
+      { name: 'Corporate Data Analyst' },
+      { name: 'Product Data Orchestrator' },
+      { name: 'Data Analyst' },
+      { name: 'District Data Producer' },
     ],
   },
   {
@@ -68,6 +85,8 @@ const industries: IndustryList[] = [
       },
       { name: 'Teaching Assistant', subItems: [] },
       { name: 'Administrator', subItems: [] },
+      { name: 'Senior Applications Representative', subItems: [] },
+      { name: 'Internal Tactics Specialist' },
     ],
   },
   {
@@ -118,11 +137,13 @@ export class SeedIndustryAndCareer1664206334343 implements MigrationInterface {
         }),
       );
       const limit = pLimit(2);
-      await Promise.all(
-        career.subItems.map((c) =>
-          limit(() => insertCareers(c, industry, careerInfo)),
-        ),
-      );
+      if (career.subItems) {
+        await Promise.all(
+          career.subItems.map((c) =>
+            limit(() => insertCareers(c, industry, careerInfo)),
+          ),
+        );
+      }
     };
 
     for (const _industry of industries) {

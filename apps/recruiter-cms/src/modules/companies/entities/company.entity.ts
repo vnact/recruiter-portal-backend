@@ -42,6 +42,11 @@ export class CompanyEntity extends AbstractEntity {
   })
   address?: string;
 
+  @Column({
+    nullable: true,
+  })
+  avatar?: string;
+
   @Column('double precision')
   gpsLat: number;
 

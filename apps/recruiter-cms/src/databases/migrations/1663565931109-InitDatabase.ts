@@ -29,28 +29,6 @@ export class InitDatabase1663565931109 implements MigrationInterface {
             )
         `);
     await queryRunner.query(`
-            CREATE TABLE "companies" (
-                "created_at" TIMESTAMP NOT NULL DEFAULT now(),
-                "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
-                "created_by_id" integer,
-                "updated_by_id" integer,
-                "id" SERIAL NOT NULL,
-                "name" character varying NOT NULL,
-                "phone" character varying NOT NULL,
-                "email" character varying NOT NULL,
-                "tax_number" character varying NOT NULL,
-                "website" character varying,
-                "size" character varying DEFAULT 'one_plus',
-                "description" text,
-                "address" character varying,
-                "gps_lat" double precision NOT NULL,
-                "gps_lng" double precision NOT NULL,
-                "province_id" integer NOT NULL,
-                "industry_id" integer,
-                CONSTRAINT "PK_d4bc3e82a314fa9e29f652c2c22" PRIMARY KEY ("id")
-            )
-        `);
-    await queryRunner.query(`
             CREATE TABLE "education" (
                 "created_at" TIMESTAMP NOT NULL DEFAULT now(),
                 "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
@@ -105,7 +83,20 @@ export class InitDatabase1663565931109 implements MigrationInterface {
                 "user_id" integer NOT NULL,
                 "skill_id" integer NOT NULL,
                 "certificate" text,
+                "description" text,
                 CONSTRAINT "PK_91999f680543f1b5f6689af1a02" PRIMARY KEY ("user_id", "skill_id")
+            )
+        `);
+    await queryRunner.query(`
+            CREATE TABLE "favorite_job" (
+                "created_at" TIMESTAMP NOT NULL DEFAULT now(),
+                "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
+                "created_by_id" integer,
+                "updated_by_id" integer,
+                "id" SERIAL NOT NULL,
+                "job_id" integer NOT NULL,
+                "user_id" integer NOT NULL,
+                CONSTRAINT "PK_313bd4ea59bf8fcd41af0ea2f7e" PRIMARY KEY ("id")
             )
         `);
     await queryRunner.query(`
@@ -120,6 +111,7 @@ export class InitDatabase1663565931109 implements MigrationInterface {
                 "name" character varying NOT NULL,
                 "role" character varying NOT NULL DEFAULT 'member',
                 "gender" character varying NOT NULL DEFAULT 'other',
+                "phone_number" character varying,
                 "birth_day" date,
                 "height" double precision,
                 "weight" double precision,
@@ -131,6 +123,7 @@ export class InitDatabase1663565931109 implements MigrationInterface {
                 "character" character varying,
                 "place_of_origin" character varying,
                 "description" text,
+                "employment_type" character varying array,
                 CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id")
             )
         `);
@@ -139,6 +132,18 @@ export class InitDatabase1663565931109 implements MigrationInterface {
         `);
     await queryRunner.query(`
             CREATE UNIQUE INDEX "IDX_6e20ce1edf0678a09f1963f958" ON "users" ("uid")
+        `);
+    await queryRunner.query(`
+            CREATE TABLE "apply" (
+                "created_at" TIMESTAMP NOT NULL DEFAULT now(),
+                "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
+                "created_by_id" integer,
+                "updated_by_id" integer,
+                "id" SERIAL NOT NULL,
+                "job_id" integer NOT NULL,
+                "user_id" integer NOT NULL,
+                CONSTRAINT "PK_c61ed680472aa0f58499175d902" PRIMARY KEY ("id")
+            )
         `);
     await queryRunner.query(`
             CREATE TABLE "job_skill" (
@@ -182,16 +187,40 @@ export class InitDatabase1663565931109 implements MigrationInterface {
             )
         `);
     await queryRunner.query(`
-            CREATE TABLE "apply" (
+            CREATE TABLE "companies" (
                 "created_at" TIMESTAMP NOT NULL DEFAULT now(),
                 "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
                 "created_by_id" integer,
                 "updated_by_id" integer,
                 "id" SERIAL NOT NULL,
-                "job_id" integer NOT NULL,
-                "user_id" integer NOT NULL,
-                CONSTRAINT "PK_c61ed680472aa0f58499175d902" PRIMARY KEY ("id")
+                "name" character varying NOT NULL,
+                "phone" character varying NOT NULL,
+                "email" character varying NOT NULL,
+                "tax_number" character varying NOT NULL,
+                "website" character varying,
+                "size" character varying DEFAULT 'one_plus',
+                "description" text,
+                "address" character varying,
+                "avatar" character varying,
+                "gps_lat" double precision NOT NULL,
+                "gps_lng" double precision NOT NULL,
+                "province_id" integer NOT NULL,
+                "industry_id" integer,
+                CONSTRAINT "PK_d4bc3e82a314fa9e29f652c2c22" PRIMARY KEY ("id")
             )
+        `);
+    await queryRunner.query(`
+            CREATE TABLE "user_career" (
+                "users_id" integer NOT NULL,
+                "careers_id" integer NOT NULL,
+                CONSTRAINT "PK_b249d4a40f8f5301cf433a5153b" PRIMARY KEY ("users_id", "careers_id")
+            )
+        `);
+    await queryRunner.query(`
+            CREATE INDEX "IDX_77cd2414985dedb46fd37e4700" ON "user_career" ("users_id")
+        `);
+    await queryRunner.query(`
+            CREATE INDEX "IDX_134cb9f823df4b95459a118f6c" ON "user_career" ("careers_id")
         `);
     await queryRunner.query(`
             ALTER TABLE "careers"
@@ -200,10 +229,6 @@ export class InitDatabase1663565931109 implements MigrationInterface {
     await queryRunner.query(`
             ALTER TABLE "careers"
             ADD CONSTRAINT "FK_d2cbd32c43bf3849270024ad9ca" FOREIGN KEY ("industry_id") REFERENCES "industries"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
-        `);
-    await queryRunner.query(`
-            ALTER TABLE "companies"
-            ADD CONSTRAINT "FK_a9ea9f740765b888dbb4055bc9a" FOREIGN KEY ("industry_id") REFERENCES "industries"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
             ALTER TABLE "education"
@@ -230,8 +255,24 @@ export class InitDatabase1663565931109 implements MigrationInterface {
             ADD CONSTRAINT "FK_215460dc28b2f3cb6507c315eb3" FOREIGN KEY ("skill_id") REFERENCES "skills"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
+            ALTER TABLE "favorite_job"
+            ADD CONSTRAINT "FK_d3463787e0e822499fb386effd2" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "favorite_job"
+            ADD CONSTRAINT "FK_509037d95c01b03dabd380c45ae" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE CASCADE ON UPDATE NO ACTION
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "apply"
+            ADD CONSTRAINT "FK_b147ed7124d95677913d58f9525" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE CASCADE ON UPDATE NO ACTION
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "apply"
+            ADD CONSTRAINT "FK_2834b82cb411d4b3772cb7202e2" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION
+        `);
+    await queryRunner.query(`
             ALTER TABLE "job_skill"
-            ADD CONSTRAINT "FK_57d07c4be198a93a91fa8479819" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
+            ADD CONSTRAINT "FK_57d07c4be198a93a91fa8479819" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE CASCADE ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
             ALTER TABLE "job_skill"
@@ -250,21 +291,28 @@ export class InitDatabase1663565931109 implements MigrationInterface {
             ADD CONSTRAINT "FK_d15e427c5cc38a9719833c6474c" FOREIGN KEY ("career_id") REFERENCES "careers"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
-            ALTER TABLE "apply"
-            ADD CONSTRAINT "FK_b147ed7124d95677913d58f9525" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE CASCADE ON UPDATE NO ACTION
+            ALTER TABLE "companies"
+            ADD CONSTRAINT "FK_a9ea9f740765b888dbb4055bc9a" FOREIGN KEY ("industry_id") REFERENCES "industries"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
     await queryRunner.query(`
-            ALTER TABLE "apply"
-            ADD CONSTRAINT "FK_2834b82cb411d4b3772cb7202e2" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE NO ACTION
+            ALTER TABLE "user_career"
+            ADD CONSTRAINT "FK_77cd2414985dedb46fd37e4700f" FOREIGN KEY ("users_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "user_career"
+            ADD CONSTRAINT "FK_134cb9f823df4b95459a118f6ce" FOREIGN KEY ("careers_id") REFERENCES "careers"("id") ON DELETE CASCADE ON UPDATE CASCADE
         `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-            ALTER TABLE "apply" DROP CONSTRAINT "FK_2834b82cb411d4b3772cb7202e2"
+            ALTER TABLE "user_career" DROP CONSTRAINT "FK_134cb9f823df4b95459a118f6ce"
         `);
     await queryRunner.query(`
-            ALTER TABLE "apply" DROP CONSTRAINT "FK_b147ed7124d95677913d58f9525"
+            ALTER TABLE "user_career" DROP CONSTRAINT "FK_77cd2414985dedb46fd37e4700f"
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "companies" DROP CONSTRAINT "FK_a9ea9f740765b888dbb4055bc9a"
         `);
     await queryRunner.query(`
             ALTER TABLE "jobs" DROP CONSTRAINT "FK_d15e427c5cc38a9719833c6474c"
@@ -280,6 +328,18 @@ export class InitDatabase1663565931109 implements MigrationInterface {
         `);
     await queryRunner.query(`
             ALTER TABLE "job_skill" DROP CONSTRAINT "FK_57d07c4be198a93a91fa8479819"
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "apply" DROP CONSTRAINT "FK_2834b82cb411d4b3772cb7202e2"
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "apply" DROP CONSTRAINT "FK_b147ed7124d95677913d58f9525"
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "favorite_job" DROP CONSTRAINT "FK_509037d95c01b03dabd380c45ae"
+        `);
+    await queryRunner.query(`
+            ALTER TABLE "favorite_job" DROP CONSTRAINT "FK_d3463787e0e822499fb386effd2"
         `);
     await queryRunner.query(`
             ALTER TABLE "user_skill" DROP CONSTRAINT "FK_215460dc28b2f3cb6507c315eb3"
@@ -300,22 +360,31 @@ export class InitDatabase1663565931109 implements MigrationInterface {
             ALTER TABLE "education" DROP CONSTRAINT "FK_5bfcef10ecdda36d2ee68aa2049"
         `);
     await queryRunner.query(`
-            ALTER TABLE "companies" DROP CONSTRAINT "FK_a9ea9f740765b888dbb4055bc9a"
-        `);
-    await queryRunner.query(`
             ALTER TABLE "careers" DROP CONSTRAINT "FK_d2cbd32c43bf3849270024ad9ca"
         `);
     await queryRunner.query(`
             ALTER TABLE "careers" DROP CONSTRAINT "FK_bf021f825799ed65380b19e9224"
         `);
     await queryRunner.query(`
-            DROP TABLE "apply"
+            DROP INDEX "public"."IDX_134cb9f823df4b95459a118f6c"
+        `);
+    await queryRunner.query(`
+            DROP INDEX "public"."IDX_77cd2414985dedb46fd37e4700"
+        `);
+    await queryRunner.query(`
+            DROP TABLE "user_career"
+        `);
+    await queryRunner.query(`
+            DROP TABLE "companies"
         `);
     await queryRunner.query(`
             DROP TABLE "jobs"
         `);
     await queryRunner.query(`
             DROP TABLE "job_skill"
+        `);
+    await queryRunner.query(`
+            DROP TABLE "apply"
         `);
     await queryRunner.query(`
             DROP INDEX "public"."IDX_6e20ce1edf0678a09f1963f958"
@@ -325,6 +394,9 @@ export class InitDatabase1663565931109 implements MigrationInterface {
         `);
     await queryRunner.query(`
             DROP TABLE "users"
+        `);
+    await queryRunner.query(`
+            DROP TABLE "favorite_job"
         `);
     await queryRunner.query(`
             DROP TABLE "user_skill"
@@ -337,9 +409,6 @@ export class InitDatabase1663565931109 implements MigrationInterface {
         `);
     await queryRunner.query(`
             DROP TABLE "education"
-        `);
-    await queryRunner.query(`
-            DROP TABLE "companies"
         `);
     await queryRunner.query(`
             DROP TABLE "careers"
