@@ -10,10 +10,9 @@ import { UserRepository } from '../repositories/user.repository';
 import { ForbiddenException } from '@nestjs/common';
 import { GetOneUserQuery } from '../queries/get-one-user.query';
 import { GetAllCareerByIdQuery } from '@modules/careers/queries/get-all-career-by-id.query';
-
+import * as merge from 'lodash/fp/merge';
 export class UpdateUserCommand extends Command<UserEntity> {
   constructor(
-    public readonly id: number,
     public readonly userId: number,
     public readonly dto: UpdateUserDto,
   ) {
@@ -30,17 +29,38 @@ export class UpdateUserCommandHandler
     private readonly queryBus: QueryBus,
   ) {}
   async execute(command: UpdateUserCommand): Promise<UserEntity> {
-    const { id, userId, dto } = command;
-    const user = await this.queryBus.execute(new GetOneUserQuery(id));
-    if (user.id != userId) {
-      throw new ForbiddenException(
-        'You are not allowed to update this experience',
-      );
-    }
+    const { userId, dto } = command;
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+      relations: {
+        educations: true,
+        experiences: {
+          company: true,
+          career: true,
+        },
+        favoriteJobs: {
+          job: true,
+        },
+        appliedJobs: {
+          job: true,
+        },
+        skills: true,
+      },
+    });
+    console.log(JSON.stringify(user, null, '\t'));
     const { careersId, ...otherFields } = dto;
     const careers = await this.queryBus.execute(
       new GetAllCareerByIdQuery(careersId),
     );
-    return this.userRepository.save({ ...user, ...otherFields });
+    // console.log('all career', JSON.stringify(careers, null, '\t'));
+    // console.log('12313');
+    // console.log(
+    //   JSON.stringify({ ...user, ...otherFields, careers }, null, '\t'),
+    // );
+    const dataToUpdate = merge(user, otherFields, careers);
+
+    return this.userRepository.save(dataToUpdate);
   }
 }

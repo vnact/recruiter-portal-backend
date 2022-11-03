@@ -130,7 +130,9 @@ export class UserEntity extends AbstractEntity {
   @OneToMany(() => ExperienceEntity, (experience) => experience.user)
   experiences: ExperienceEntity[];
 
-  @OneToMany(() => UserSkillEntity, (userSkill) => userSkill.user)
+  @OneToMany(() => UserSkillEntity, (userSkill) => userSkill.user, {
+    cascade: false,
+  })
   skills: UserSkillEntity[];
 
   @OneToMany(() => JobEntity, (job) => job.recruiter)
