@@ -15,7 +15,18 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
   constructor(private readonly queryBus: QueryBus) {}
   async execute(query: SearchJobQuery) {
     const {
-      dto: { lat, lng, levels, jobTypes, rangeMeter, q },
+      dto: {
+        lat,
+        lng,
+        levels,
+        jobTypes,
+        rangeMeter,
+        q,
+        careerId,
+        page,
+        skip,
+        take,
+      },
     } = query;
 
     const geoDistanceQuery = esb
@@ -59,6 +70,11 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
             : esb.matchQuery('employmentType.keyword', jobTypes[0]),
         ]);
       mustFilterQuery.push(jobTypeQuery);
+    }
+
+    if (careerId) {
+      const careerQuery = esb.matchQuery('career.id', '' + careerId);
+      mustFilterQuery.push(careerQuery);
     }
 
     const boolQuery = esb

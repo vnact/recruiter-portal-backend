@@ -1,5 +1,5 @@
 import { PaginationDto } from '@common/dto/pagination.dto';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ExpLevel, EmploymentType } from 'src/constants/enum';
 import { Transform } from 'class-transformer';
 import {
@@ -55,4 +55,9 @@ export class SearchJobDto extends PaginationDto {
   @Transform(({ value }) => (typeof value === 'string' ? [value] : value))
   @IsOptional()
   jobTypes?: EmploymentType[];
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  careerId?: number;
 }
