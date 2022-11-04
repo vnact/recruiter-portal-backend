@@ -5,6 +5,7 @@ import { JobEntity } from '../entities/job.entity';
 import * as esb from 'elastic-builder';
 import { ElasticsearchSearchQuery } from '@modules/elasticsearch/queries/elasticsearch-search.query';
 import { GetOneUserQuery } from '@modules/users/queries/get-one-user.query';
+import { getAllowedExperience } from '@constants/experience-map';
 
 export class SuggestJobQuery extends Query<JobEntity[]> {
   constructor(public readonly id: number, public readonly dto: PaginationDto) {
@@ -22,7 +23,8 @@ export class SuggestJobQueryHandler implements IQueryHandler<SuggestJobQuery> {
     if (!user) return [];
 
     const shouldQuery = [];
-    const { careers, skills } = user;
+    const mustQuery = [];
+    const { careers, skills, level, employmentType } = user;
     if (careers.length > 1) {
       shouldQuery.push(
         esb
@@ -46,9 +48,23 @@ export class SuggestJobQueryHandler implements IQueryHandler<SuggestJobQuery> {
         esb.matchQuery('jobSkill.skill.id', '' + skills[0].skillId),
       );
     }
+
+    mustQuery.push(esb.boolQuery().should(shouldQuery));
+    const allowedExperienceLevel = getAllowedExperience(level);
+
+    if (allowedExperienceLevel.length > 1) {
+      mustQuery.push(
+        esb.termsQuery().field('level.keyword').values(allowedExperienceLevel),
+      );
+    } else if (allowedExperienceLevel.length == 1) {
+      mustQuery.push(
+        esb.matchQuery('level.keyword', allowedExperienceLevel[0]),
+      );
+    }
+
     const body = esb
       .requestBodySearch()
-      .query(esb.boolQuery().should(shouldQuery))
+      .query(esb.boolQuery().must(mustQuery))
       .sorts(dto.toSortEntries().map((_sort) => esb.sort(..._sort)))
       .size(dto.take)
       .from(dto.skip);
