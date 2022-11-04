@@ -20,7 +20,6 @@ export class GetAllCompanyQueryHandler
   async execute(query: GetAllCompanyQuery) {
     const { dto } = query;
     return this.companyRepository.find({
-      relations: ['jobs'],
       skip: dto.skip,
       take: dto.take,
       order: dto.toQueryOrder(),
