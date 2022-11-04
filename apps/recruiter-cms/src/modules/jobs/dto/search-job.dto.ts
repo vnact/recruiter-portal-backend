@@ -25,7 +25,6 @@ export class SearchJobDto extends PaginationDto {
   @ApiProperty()
   @IsNumber()
   @Min(0)
-  @Max(50000, { message: 'range 0-50km' })
   @IsOptional()
   rangeMeter?: number;
 
