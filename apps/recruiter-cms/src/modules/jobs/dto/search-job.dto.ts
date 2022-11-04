@@ -22,11 +22,13 @@ export class SearchJobDto extends PaginationDto {
   @IsOptional()
   lng?: number;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'kilometer',
+  })
   @IsNumber()
   @Min(0)
   @IsOptional()
-  rangeMeter?: number;
+  range?: number;
 
   @ApiProperty({
     default: [],

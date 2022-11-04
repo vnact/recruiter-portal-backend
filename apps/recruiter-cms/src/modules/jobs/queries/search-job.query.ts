@@ -20,7 +20,7 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
         lng,
         levels,
         jobTypes,
-        rangeMeter,
+        range,
         q,
         careers,
         skip,
@@ -34,11 +34,11 @@ export class SearchJobQueryHandler implements IQueryHandler<SearchJobQuery> {
     const boolFilterQuery: esb.Query[] = [];
     const mustQuery = [];
 
-    if (lat && lng && rangeMeter) {
+    if (lat && lng && range) {
       const geoDistanceQuery = esb
         .geoDistanceQuery()
         .field('pin.location')
-        .distance(`${rangeMeter}m`)
+        .distance(`${range}km`)
         .geoPoint(esb.geoPoint().lat(lat).lon(lng));
       boolFilterQuery.push(geoDistanceQuery);
     }
