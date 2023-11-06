@@ -302,9 +302,17 @@ export class InitDatabase1663565931109 implements MigrationInterface {
             ALTER TABLE "user_career"
             ADD CONSTRAINT "FK_134cb9f823df4b95459a118f6ce" FOREIGN KEY ("careers_id") REFERENCES "careers"("id") ON DELETE CASCADE ON UPDATE CASCADE
         `);
+
+    await queryRunner.query(`
+    ALTER TABLE "users"
+ADD "avatar" character varying
+        `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
+            ALTER TABLE "users" DROP COLUMN "avatar"
+        `);
     await queryRunner.query(`
             ALTER TABLE "user_career" DROP CONSTRAINT "FK_134cb9f823df4b95459a118f6ce"
         `);
