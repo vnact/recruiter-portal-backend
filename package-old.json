@@ -1,0 +1,49 @@
+{
+  "name": "@vnact/recruiter-portal-backend",
+  "license": "UNLICENSED",
+  "private": true,
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vnact/recruiter-portal-backend.git"
+  },
+  "author": "DC <cuong.nl5.kma@gmail.com>",
+  "workspaces": [
+    "apps/*",
+    "libraries/*"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@notekunn/eslint-config": "^1.3.3",
+    "@notekunn/prettier-configs": "^1.6.0",
+    "@notekunn/tsconfig": "^1.1.0",
+    "husky": "^8.0.0",
+    "lerna": "^4.0.0",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.9.1"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "lint-staged": "lint-staged --config lint-staged.js",
+    "format:check": "prettier --check \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",
+    "format:write": "prettier --write \"**/*.{js,jsx,mjs,ts,tsx,md,yml,yaml}\"",
+    "lint": "eslint \"./@(apps|libraries)/**/*.ts\"",
+    "lint:fix": "eslint --fix \"./@(apps|libraries)/**/*.ts\"",
+    "test": "lerna run test --include-dependencies --stream",
+    "build": "lerna run build --include-dependencies --stream",
+    "ci:install": "yarn install --frozen-lockfile",
+    "ci:build": "yarn build",
+    "ci:release": "lerna publish"
+  },
+  "prettier": "@notekunn/prettier-configs",
+  "eslintConfig": {
+    "extends": [
+      "@notekunn/eslint-config"
+    ],
+    "ignorePatterns": [
+      "**/*.d.ts"
+    ]
+  }
+}
