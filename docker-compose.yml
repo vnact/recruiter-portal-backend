@@ -42,7 +42,19 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zoo1:2888:3888
-
+  db:
+    image: postgres:latest
+    environment:
+      - 'POSTGRES_USER=admin'
+      - 'POSTGRES_PASSWORD=admin'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    restart: always
+    networks:
+      - db-network
+  
   kafka:
     image: confluentinc/cp-kafka:7.3.2
     hostname: kafka1
@@ -84,3 +96,7 @@ volumes:
     driver: local
   postgres-data:
     driver: local
+
+networks:
+  db-network:
+    driver: bridge
