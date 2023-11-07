@@ -10,6 +10,7 @@ export const ormConfig = registerAs('database', () => {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
+    schema: process.env.DB_SCHEMA || 'public',
     namingStrategy: new SnakeNamingStrategy(),
     migrationsTableName: '__migrations',
     entities: ['**/*.entity.js'],
